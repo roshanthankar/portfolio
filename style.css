@@ -429,7 +429,7 @@ nav a:hover {
 
 
 /* =========================================
-   EDITORIAL ARTICLE PAGE (Dhan App)
+   EDITORIAL ARTICLE PAGE
 ========================================= */
 
 /* Center the article and set a maximum reading width */
@@ -682,6 +682,43 @@ nav a:hover {
     /* Centers the image if it's smaller than the container */
     margin: 0 auto; 
 }
+
+
+
+/* --- Text CONTAINER --- */
+.text-container {
+    display: grid;
+    /* Automatically creates columns that fit, minimum 240px wide */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    width: 100%;
+    /* margin: 32px 0 40px 0; */
+}
+
+.text-card {
+    background-color: #191510; /* Matches your other containers */
+    border: 1px solid #4D472E; /* Subtle dark-gold/brown border */
+    border-radius: 4px;
+    padding: 24px 24px 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* --- MOBILE RESPONSIVENESS FOR METRICS --- */
+@media (max-width: 768px) {
+    .text-container {
+        grid-template-columns: 1fr; /* Force 1 column on mobile */
+        gap: 16px;
+        margin: 24px 0;
+    }
+    
+    .text-card {
+        padding: 24px 20px;
+    }
+}
+
+
 
 /* --- CALLOUT COMPONENT --- */
 .callout-box {
