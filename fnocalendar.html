@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FnO Expiry Calendar - Dhan Web | Roshan Thankar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="layout-wrapper">
+
+        <main class="editorial-container">
+
+        <div class="nav-container">
+            <a href="index.html" class="editorial-back">
+                &larr; Home
+            </a>
+        </div>
+
+        <header class="editorial-header">
+            <div class="editorial-meta">
+                December 2025 &nbsp;&middot;&nbsp; Dhan Web &nbsp;&middot;&nbsp; <span class="highlight">Live</span>
+            </div>
+           
+            <h1 class="editorial-title">Designed the first FnO Calendar on Dhan</h1>
+           
+            <p class="editorial-excerpt">
+                Simplifying expiry tracking so traders can easily manage positions & avoid missed opportunities
+            </p>
+        </header>
+
+        <hr class="editorial-divider">
+
+        <article class="editorial-body">
+
+            <div id="context" class="editorial-label">
+                <span>Context</span>
+            </div>
+
+            <h2 class="editorial-section-title">What’s Dhan?</h2>
+            
+            <p>Dhan is a technology-led stock trading and investing platform built for India’s active market participants. It solves the problem of slow, outdated brokerage interfaces by offering lightning-fast execution and deep integration with tools like TradingView.</p>
+            
+            <p>The platform serves two distinct user personas:</p>
+
+            <p>Super Traders - Who need speed, advanced charts & F&O capabilities.</p>
+
+            <p>Long-Term Investors - Who focus on wealth creation through SIPs & IPOs.</p>
+            
+            <br>
+
+            <div id="problem" class="editorial-label">
+                <span>Problem</span>
+            </div>
+
+            <h2 class="editorial-section-title">What’s the problem statement?</h2>
+            
+            <p>Active traders dealing in Options and Futures (FnO) struggle to track expiry dates because the data is fragmented across multiple segments (Index, Stocks, Commodities) and exchanges (NSE, BSE, MCX). There was no single source of truth, forcing traders to manually track dates.</p>
+
+            <br>
+
+            <div id="rootcause" class="editorial-label">
+                <span>Root cause</span>
+            </div>
+
+            <h2 class="editorial-section-title">Why does this problem exist?</h2>
+            
+            <p>Exchanges operate independently. NSE, BSE, and MCX release their trading schedules and holiday circulars in disparate formats (PDFs, separate webpages). Furthermore, calculation rules differ (e.g., "Last Thursday" vs. "Last Friday"), and holiday logic (shifting expiry to the previous trading day) adds a layer of complexity that static calendars often miss.</p>
+
+            <!-- <br>
+
+            <div id="insights" class="editorial-label">
+                <span>Insights</span>
+            </div>
+
+            <h2 class="editorial-section-title">How does Dhan know this is a problem?</h2>
+            
+            <p></p> -->
+
+            <br>
+
+            <div id="business&uservalue" class="editorial-label">
+                <span>Business & User Value</span>
+            </div>
+
+            <h2 class="editorial-section-title">Why should Dhan solve for it?</h2>
+            
+            <p>User Value (Clarity): Eliminates cognitive load. Traders can plan their week and capital allocation without manual research or fear of operational errors (like forced physical delivery).</p>
+            
+            <p>Business Value (Acquisition & Retention):</p>
+
+            <p>SEO Magnet: Expiry dates are high-intent search queries. Capturing this traffic brings potential users directly into the Dhan ecosystem.</p>
+
+            <p>Engagement: Keeping the user on the platform increases the likelihood of executing trades within Dhan.</p>
+
+            <br>
+
+            <div id="keydesignprinciples" class="editorial-label">
+                <span>Key design principles</span>
+            </div>
+
+            <h2 class="editorial-section-title">Non-negotiable rules</h2>
+            
+            <p>Zero Ambiguity: Dates must be absolute. If a holiday shifts an expiry, the UI must reflect the actual trading day, not the theoretical one.</p>
+            
+            <p>Scannability First: Traders shouldn't read; they should scan. Use clear visual hierarchy to distinguish between Index, Stock, and Commodity segments immediately.</p>
+
+            <p>Glanceable Context: Show "Days Left" (e.g., "Expiring in 2 Days") alongside the date to help with mental mental modeling of time.</p>
+
+            <br>
+
+            <div id="finalsolution" class="editorial-label">
+                <span>Solution</span>
+            </div>
+
+            <h2 class="editorial-section-title">FTUX for FnO Expiry Calendar</h2>
+
+            <p>I designed a split-view interface that serves two distinct user modes:</p>
+
+            <ul>
+                <li>Active Planning (The Tool)</li>
+                <li>Market Education (The Knowledge Base)</li>
+            </ul>
+
+            <div class="media-container">
+                <img src="assets/FnO/FnO_soln1.png" alt="Soln1" loading="lazy">
+            </div>
+
+            <div class="media-container">
+               <img src="assets/FnO/FnO_soln2.png" alt="Soln2" loading="lazy">
+            </div>
+
+            <br>
+
+            <div id="designdecision" class="editorial-label">
+                <span>Design decision</span>
+            </div>
+
+            <h2 class="editorial-section-title">The "Today’s Expiry" Alert</h2>
+
+            <div class="media-container">
+                <img src="assets/FnO/FnO_soln3.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>Instead of forcing users to hunt for today's date in a list, I extracted the most critical data point what expires right now and placed it in a dedicated text summary at the top (e.g., "Below is the list of contracts that will expire today...").</p>
+ 
+            <p>This targets the "Anxiety" pain point. It gives traders immediate confirmation on their open positions without them needing to filter or scroll.</p>
+
+            <br>
+
+            <h2 class="editorial-section-title">Chronological "Timeline" View</h2>
+
+            <div class="media-container">
+                <img src="assets/FnO/FnO_soln4.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>The main table is strictly sorted by date (Feb 17, Feb 18, Feb 19), mixing segments (Index, Commodity) into one flow rather than separating them into tabs.</p>
+ 
+            <p>Traders experience time linearly. They need to know "What is happening this week?" across all their holdings. This unified view prevents the "out of sight, out of mind" error where a trader focuses on Nifty but forgets their Crude Oil position is expiring.</p>
+
+            <br>
+
+            <h2 class="editorial-section-title">Visual Scannability</h2>
+
+            <div class="media-container">
+                <img src="assets/FnO/FnO_soln5.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>I used distinct visual markers a green graph icon for Index and gold bars for Commodity along with explicit exchange logos (NSE, MCX).</p>
+
+            <p>This allows users to "read by shape" rather than text. A user scanning for Commodities can ignore all green icons, significantly speeding up data processing.</p>
+
+            <br>
+
+            <h2 class="editorial-section-title">The "Trust Layer"</h2>
+
+            <div class="media-container">
+                <img src="assets/FnO/FnO_soln6.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>Below the interactive tool, I included static tables explaining the rules of expiry (e.g., "Index Monthly contracts expire on the last Thursday").</p>
+
+            <p>This serves two purposes:</p>
+
+            <ul>
+                <li>Trust & Verification: It shows the math behind the calendar. If a user questions a date, the rule is right there to verify it.</li>
+                <li>SEO Strategy: These tables are rich with keywords ("Stock Market Expiry Days", "Weekly Contracts"). This content is the primary driver for capturing traffic from users asking "How is Gold expiry calculated?"</li>
+            </ul>
+
+            <br>
+
+            <div id="impact" class="editorial-label">
+                <span>Impact</span>
+            </div>
+
+            <h2 class="editorial-section-title">Early Performance Signals</h2>
+
+            <p>Data observed after Launch -</p>
+
+            <p>The feature became an immediate organic growth engine, validating the hypothesis that this was a high-demand utility.</p>
+
+            <p>Reach: 1,12,000+ Total Impressions.</p>
+
+            <p>Acquisition: 2,000+ Clicks driven directly to the platform (High-intent traffic).</p>
+
+            <p>Authority: Achieved an Average Rank of 7.5 on Google, securing first-page visibility for competitive keywords.</p>
+
+            <br>
+
+            <div id="learnings" class="editorial-label">
+                <span>Learnings</span>
+            </div>
+
+            <h2 class="editorial-section-title">What I Learned</h2>
+
+            <p>Utility is Marketing: Building a useful "side tool" can sometimes drive more organic acquisition than traditional marketing campaigns.</p>
+
+            <p>Design for Trust: In fintech, accuracy is the primary design feature. Automating the holiday logic was critical; one wrong date would have destroyed user trust instantly.</p>
+
+            <p>SEO & UX Alignment: Good information architecture (clear headers, structured data) doesn't just help users it helps search engines understand and rank the content, creating a flywheel of visibility.</p>
+
+        </article>
+
+        <br>
+
+        <hr class="editorial-divider">
+
+        <div class="nav-container">
+            <a href="index.html" class="editorial-back">
+                &larr; Home
+            </a>
+
+            <a href="index.html" class="editorial-back">
+                Next &rarr;
+            </a>
+        </div>
+
+    </main>
+
+    <aside class="toc-sidebar">
+        <div class="toc-sticky">
+            <h4 class="toc-header">ON THIS PAGE</h4>
+            <ul class="toc-list">
+                <li><a href="#context" class="toc-link">Context</a></li>
+                <li><a href="#problem" class="toc-link">Problem</a></li>
+                <li><a href="#rootcause" class="toc-link">Root Cause</a></li>
+                <!-- <li><a href="#insights" class="toc-link">Insights</a></li> -->
+                <li><a href="#business&uservalue" class="toc-link">Business & User Value</a></li>
+                <li><a href="#keydesignprinciples" class="toc-link active">Key Design Principles</a></li>
+                <li><a href="#finalsolution" class="toc-link">Solution</a></li>
+                <li><a href="#designdecision" class="toc-link">Design Decision</a></li>
+                <li><a href="#impact" class="toc-link">Impact</a></li>
+                <li><a href="#learnings" class="toc-link">Learnings</a></li>
+            </ul>
+        </div>
+        </aside>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

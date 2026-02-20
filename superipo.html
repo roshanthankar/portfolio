@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperIPO - Dhan | Roshan Thankar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="layout-wrapper">
+
+        <main class="editorial-container">
+
+        <div class="nav-container">
+            <a href="index.html" class="editorial-back">
+                &larr; Home
+            </a>
+        </div>
+
+        <header class="editorial-header">
+            <div class="editorial-meta">
+                January 2026 &nbsp;&middot;&nbsp; Dhan App &nbsp;&middot;&nbsp; <span class="highlight">Live</span>
+            </div>
+            
+            <h1 class="editorial-title">Designed the Super IPO feature on Dhan</h1>
+          
+            <p class="editorial-excerpt">
+                Automating IPO applications for traders & investors based on live market demand
+            </p>
+        </header>
+
+        <hr class="editorial-divider">
+
+        <article class="editorial-body">
+
+            <div id="context" class="editorial-label">
+                <span>Context</span>
+            </div>
+
+            <h2 class="editorial-section-title">What’s Dhan?</h2>
+            
+            <p>Dhan is a technology-led stock trading and investing platform built for India’s active market participants. It solves the problem of slow, outdated brokerage interfaces by offering lightning-fast execution and deep integration with tools like TradingView.</p>
+            
+            <p>The platform serves two distinct user personas:</p>
+
+            <p>Super Traders - Who need speed, advanced charts & F&O capabilities.</p>
+
+            <p>Long-Term Investors - Who focus on wealth creation through SIPs & IPOs.</p>
+
+            <br>
+
+            <div id="problem" class="editorial-label">
+                <span>Problem</span>
+            </div>
+
+            <h2 class="editorial-section-title">What’s the problem statement?</h2>
+            
+            <p>Market participants often treat IPOs as a momentum game. Instead of analyzing fundamentals, they rely on "Social Proof" monitoring the Live Subscription Status (e.g., "QIBs subscribed 50x") to gauge if an IPO is worth the risk.</p>
+            
+            <p>This creates a high-friction loop where users constantly refresh the app to see if the "crowd" has arrived yet.</p>
+
+            <br>
+
+            <div id="rootcause" class="editorial-label">
+                <span>Root cause</span>
+            </div>
+
+            <h2 class="editorial-section-title">Why does this problem exist?</h2>
+            
+            <p>The problem exists because of a mismatch between Market Speed and User Attention.</p>
+            
+            <p>IPO demand changes every minute. A "boring" IPO at 10 AM can become a "hot" IPO by 2 PM if a large institution places a bid.</p>
+
+            <p>Users have jobs/lives. They cannot refresh the Dhan app every 15 minutes to check if the subscription crossed 10x.</p>
+
+            <p>This gap creates Anxiety. Users judge the IPO's value by its current popularity, but they physically miss the moment that popularity spikes.</p>
+
+            <br>
+
+            <div id="insights" class="editorial-label">
+                <span>Insights</span>
+            </div>
+
+            <h2 class="editorial-section-title">How does Dhan know this is a problem?</h2>
+            
+            <p>We observed two distinct signals:</p>
+            
+            <p>We knew that market participation spikes disproportionately in the final hours of an IPO. This delay proves that users aren't waiting for funds; they are waiting for validation.</p>
+
+            <p>In India, market participants use Subscription Status (e.g., "QIB subscribed 50x") as a proxy for quality. They don't read the balance sheet; they read the crowd. If the crowd isn't there yet, they don't bid.</p>
+            
+            <br>
+
+            <div id="business&uservalue" class="editorial-label">
+                <span>Business & User Value</span>
+            </div>
+
+            <h2 class="editorial-section-title">Why should Dhan solve for it?</h2>
+            
+            <p>For the User (FOMO Relief) - It moves them from "Anxious Tracking" to "Strategic Intent." They can say, I only want this if it's hot, and then go back to work.</p>
+            
+            <p>For Dhan (Competitive Moat) - Dhan positions itself as a "Tech-First" platform for Super Traders and Long term Investors. Competitors (like Zerodha or Groww) require manual bidding. By automating this, Dhan captures the high-intent volume that might otherwise be lost if a user forgets to check the app.</p>
+
+            <br>
+
+            <div id="keydesignprinciples" class="editorial-label">
+                <span>Key design principles</span>
+            </div>
+
+            <h2 class="editorial-section-title">Non-negotiable rules</h2>
+            
+            <p>Cognitive Offloading - The user shouldn't have to calculate what "500% subscription" means. We use simple multipliers (2x, 5x) and presets to replace math with "sentiment choices."</p>
+            
+            <p>Trust Through Friction - Automating money is scary. We must introduce intentional friction (like OTPs or Review screens) so the user never feels like the app is "spending money behind their back."</p>
+
+            <p>Scalable Simplicity - The interface must be dead simple for a first-time investor (Retail @ Cut-Off) but powerful enough for a whale (HNI @ Specific Lot Sizes) without cluttering the screen for the beginner.</p>
+
+            <br>
+
+            <div id="userflow" class="editorial-label">
+                <span>Userflow</span>
+            </div>
+
+            <h2 class="editorial-section-title">Userflow</h2>
+            
+            <div class="flow-container">
+    
+                <div class="flow-node">Opens an IPO List Page</div>
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-node">Taps "SuperIPO"</div>
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-node">Selects Trigger (>5x) + Defaults to Cut-Off Price to Activate</div>
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-node">OTP Verification</div>
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-row">
+                    <div class="flow-node">SuperIPO is Active ( Bot monitors real-time NSE/BSE data every second )</div>
+                </div>
+            <div class="flow-arrow">↓</div>
+
+            <div class="flow-node">Subscription crosses >5x, System places the order instantly</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-node">User taps notification → Approves UPI Mandate</div>
+            </div>
+
+            <br>
+
+            <div id="iteration1" class="editorial-label">
+                <span>Iteration 1</span>
+            </div>
+
+            <h2 class="editorial-section-title">Oversimplified Approach</h2>
+
+            <div class="media-container">
+                <img src="assets/IT1.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>✅  Pros (Why we tried it)</p>
+            
+            <p>Low Cognitive Load - The interface is clean. It uses simple chips for triggers (2x, 5x) and checkboxes for IPO Type.</p>
+
+            <p>Scannability - A user can look at this and understand the logic in 2 seconds.</p>
+
+            <p>❌  Cons (Why we failed)</p>
+
+            <p>Broken SME Logic - SME IPOs require large bids (₹1L+) and often force the HNI category. This interface failed to accommodate those rules, creating dead ends for users.</p>
+
+            <p>Excluded "Super Traders" - By locking the system to "1 Lot," we alienated our most valuable users who want to buy in bulk (10+ lots).</p>
+
+            <p>The "Impossible" Promise - Placing Mainboard and SME checkboxes side-by-side implied users could apply for both with a single rule. This is technically impossible, as they require completely different execution parameters.</p>
+
+            <br>
+
+            <div id="iteration2" class="editorial-label">
+                <span>Iteration 2</span>
+            </div>
+
+            <h2 class="editorial-section-title">All-In-One Approach</h2>
+
+            <div class="media-container">
+                <img src="assets/IT2.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>✅  Pros (Why we tried it)</p>
+            
+            <p>Total Freedom - It technically allowed every possible combination. Users could apply as "Retail" for Mainboard and "HNI" for SME in one go.</p>
+
+            <p>No Hidden Rules - Every setting was visible, so users knew exactly what they were signing up for.</p>
+            
+            <p>❌  Cons (Why we failed)</p>
+
+            <p>Too Complicated - The screen looked like a tax form. Asking users to make 4–5 complex decisions at once (Lot Size, Segment, Category) was overwhelming.</p>
+
+            <p>Unnecessary Effort - It felt like we were forcing them to plan a strategy for both Mainboard and SME created mental fatigue.</p>
+
+            <p>Lost Focus - The screen was so cluttered with dropdowns that the most important part Setting the Trigger (>5x) got buried.</p>
+
+            <br>
+
+            <div id="finalsolution" class="editorial-label">
+                <span>Final Solution</span>
+            </div>
+
+            <h2 class="editorial-section-title">FTUX for setting up Super IPO</h2>
+
+            <div class="media-container">
+                <img src="assets/Soln1.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <br>
+
+            <h2 class="editorial-section-title">Disable/Edit Super IPO</h2>
+
+            <div class="media-container">
+                <img src="assets/Soln2.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <br>
+
+            <div id="designdecision" class="editorial-label">
+                <span>Design decision</span>
+            </div>
+
+            <h2 class="editorial-section-title">One-Tap Triggers</h2>
+
+            <div class="media-container">
+                <img src="assets/Soln3.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>We introduced a "Chip-based" interaction model.</p>
+
+            <p>Users simply tap >2x, >5x, or >10x.</p>
+
+            <p>Why it works - It turns a complex calculation into a simple "confidence choice." You don't need to know the math; you just need to decide if you want to be "Safe" (2x) or "Aggressive" (10x).</p>
+
+            <p>Smart Default - The system automatically selects "Total Subscription," so a beginner can set a SuperIPO in just one tap.</p>
+
+            <div class="callout-box">
+                <h3 class="callout-title">V1 launched with Mainboard Only to prioritize simplicity.</h3>
+                <!-- <p class="callout-text">  </p> -->
+            </div>
+
+            <br>
+
+            <h2 class="editorial-section-title">Pro Controls</h2>
+
+            <div class="media-container">
+                <img src="assets/Soln4.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>For the "Super Trader” -</p>
+
+            <p>Users can change the tracking source from "Total" to "QIB" (Institutional). This lets them ignore the crowd and only buy when the big banks are buying.</p>
+
+            <p>We added a toggle for HNI (High Net-worth). This unlocks "Lot Size" controls, allowing users to place large bids (₹2 Lakhs+) automatically, something no other app offers.</p>
+
+            <br>
+
+            <h2 class="editorial-section-title">Positive Friction</h2>
+
+            <div class="media-container">
+                <img src="assets/Soln5.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>Automation is scary. Users worry, "Did I just accidentally spend money?"</p>
+
+            <p>We added a mandatory OTP Verification step before the bot activates.</p>
+
+            <p>Why it works - It acts as a safety lock. It forces the user to pause and explicitly say, "Yes, I authorize this." This builds trust.</p>
+
+            <br>
+
+            <h2 class="editorial-section-title">Clear Status</h2>
+
+            <div class="media-container">
+                <img src="assets/Soln6.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>Once the SuperIPO is set, the user needs to know the system is working.</p>
+
+            <p>We placed the "Super IPO is ON" status bar at the very bottom of the screen, below the list.</p>
+
+            <p>Why it works - This respects the Visual Hierarchy. The user's primary goal is to browse Open IPOs, not check settings. By pinning the status to the bottom, we keep the main view clean while maintaining "System Visibility" for peace of mind.</p>
+
+            <br>
+
+            <h2 class="editorial-section-title">Flexible Control</h2>
+
+            <div class="media-container">
+                <img src="assets/Soln7.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>Market sentiment changes quickly. A user might start aggressive (>2x) but decide later to play it safe (>10x). If they feel "locked in," they won't use the feature.</p>
+
+            <p>We enabled Full Editability of the active SuperIPO. The user can tap "Edit," change their trigger or lot size, and hit "Update Super IPO."</p>
+
+            <p>Why it works - Users are more likely to set a SuperIPO early in the day if they know they can refine (or disable) it later before the trigger fires.</p>
+
+            <br>
+
+            <div id="impact" class="editorial-label">
+                <span>Impact</span>
+            </div>
+
+            <h2 class="editorial-section-title">Early Performance Signals</h2>
+
+            <p>Data observed after Launch -</p>
+
+            <p>High User Interest - We observed a 2x spike in feature discovery during the "Day 3" rush hours, validating that users were actively looking for automation tools.</p>
+
+            <p>Adoption Rate - Within the first month, a significant percentage of our "Super Trader" cohort (#Madefortrade - our most active user base) adopted the feature, exceeding our initial beta targets</p>
+
+            <div class="callout-box">
+                <h3 class="callout-title">As this is a brand-new behaviour for Indian investors & traders, we are currently gathering feedback to refine the feature.</h3>
+                <!-- <p class="callout-text">  </p> -->
+            </div>
+
+            <br>
+
+            <div id="learnings" class="editorial-label">
+                <span>Learnings</span>
+            </div>
+
+            <h2 class="editorial-section-title">What I Learned</h2>
+
+            <p>Designing for Trust - When automating money, clarity trumps simplicity. Adding the "OTP Step" felt like adding friction, but it made users feel safe.</p>
+
+            <p>Psychology of "The Herd" - I learned that retail investors don't always want "data"; they want "validation." Designing the "QIB vs. Total" toggle taught me how to serve both emotional investors (Total) and analytical traders (QIB) in one interface.</p>
+
+        </article>
+
+        <br>
+
+        <hr class="editorial-divider">
+
+        <div class="nav-container">
+            <a href="index.html" class="editorial-back">
+                &larr; Home
+            </a>
+
+            <a href="index.html" class="editorial-back">
+                Next &rarr;
+            </a>
+        </div>
+
+    </main>
+
+    <aside class="toc-sidebar">
+        <div class="toc-sticky">
+            <h4 class="toc-header">ON THIS PAGE</h4>
+            <ul class="toc-list">
+                <li><a href="#context" class="toc-link">Context</a></li>
+                <li><a href="#problem" class="toc-link">Problem</a></li>
+                <li><a href="#rootcause" class="toc-link">Root Cause</a></li>
+                <li><a href="#insights" class="toc-link">Insights</a></li>
+                <li><a href="#business&uservalue" class="toc-link">Business & User Value</a></li>
+                <li><a href="#keydesignprinciples" class="toc-link active">Key Design Principles</a></li>
+                <li><a href="#userflow" class="toc-link">Userflow</a></li>
+                <li><a href="#iteration1" class="toc-link">Iteration 1</a></li>
+                <li><a href="#iteration2" class="toc-link">Iteration 2</a></li>
+                <li><a href="#finalsolution" class="toc-link">Final Solution</a></li>
+                <li><a href="#designdecision" class="toc-link">Design Decision</a></li>
+                <li><a href="#impact" class="toc-link">Impact</a></li>
+                <li><a href="#learnings" class="toc-link">Learnings</a></li>
+            </ul>
+        </div>
+        </aside>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

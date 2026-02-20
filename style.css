@@ -1,0 +1,813 @@
+@font-face {
+  font-family: "Inter Display";
+  src: url("/fonts/Inter-Display.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+
+    font-family: "Inter Display", Inter, system-ui, sans-serif;
+
+    font-variant-ligatures: common-ligatures;
+
+    font-feature-settings:
+    "liga" 1,
+    "cv01" 1,
+    "cv08" 1,
+    "cv09" 1,
+    "cv11" 1,
+    "cv13" 1;
+
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+
+    scroll-behavior: smooth;
+}
+
+#home{
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+    position: relative;
+}
+
+/* NAVIGATION */
+
+nav {
+    /* 1. STICKY POSITIONING */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Ensures it sits ABOVE the hero content when scrolling */
+
+    /* 2. FROSTED GLASS EFFECT */
+    background-color: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(12px);         /* The Blur Magic */
+    -webkit-backdrop-filter: blur(12px); /* Required for Safari/iPhone */
+
+    /* 3. YOUR EXISTING STYLES (Preserved) */
+    padding: clamp(6px, 1vw, 12px) clamp(16px, 12vw, 240px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    border-bottom: 1px solid #ffffff2a;
+}
+
+#work {
+    scroll-margin-top: 100px;
+}
+
+.logo {
+    display: inline-block;
+    width: auto; /* Maintains aspect ratio */
+    
+    /* Min: 12px (Mobile) | Target: 2% of screen | Max: 16px (Desktop) */
+    height: clamp(12px, 2vw, 16px);
+    
+    opacity: 0.8; /* Optional: matches the reference style */
+}
+
+#quick-links{
+    display: flex;
+    gap: clamp(12px, 2vw, 32px);
+}
+
+#quick-links h4 {
+    padding: clamp(8px, 1vw, 12px) clamp(8px, 2vw, 16px);
+}
+
+nav a {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.8;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+nav a:hover {
+    opacity: 1;
+}
+
+
+
+/* CENTER CONTENT */
+
+#hero {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 120px clamp(16px, 4vw, 64px) clamp(40px, 4vw, 64px);
+}
+
+.hero-title {
+  font-size: clamp(24px, 8vw, 64px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: clamp(16px, 5.5vw, 20px);
+  word-wrap: break-word;
+}
+
+.hero-native {
+  font-size: clamp(18px, 2vw, 24px);
+  letter-spacing: 0.01em;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.dhan-link {
+    color: #ffffff;
+    
+    /* 2. The Underline Styling */
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.15); /* Same color as text */
+    text-decoration-thickness: 1.5px; /* Slightly thicker than default */
+    text-underline-offset: 4px; /* Pushes the line down (Critical for this look) */
+    
+    /* 3. Transition for smooth hover */
+    transition: all 0.2s ease;
+}
+
+/* Hover Effect: Brightens slightly */
+.dhan-link:hover {
+    color: #ffffff; 
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-quote {
+  max-width: 600px;
+  margin-top: clamp(20px, 4vw, 40px);
+  font-size: clamp(16px, 1.5vw, 22px);
+  line-height: 1.5;
+  letter-spacing: 0.001em;
+  font-weight: 400;
+  opacity: 0.60;
+}
+
+.hero-quote span {
+  display: block;
+  margin-top: clamp(16px, 4vw, 32px);
+  font-size: clamp(14px, 1.5vw, 16px);
+  letter-spacing: 0.01em;
+  opacity: 0.65;
+  font-style: italic;
+}
+
+/* Styling the link inside the quote attribution */
+.hero-quote span a {
+    color: inherit; /* Keeps it the same grey as the text */
+    text-decoration: none; /* Removes default ugly blue underline */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Adds a premium, thin underline */
+    transition: all 0.2s ease;
+}
+
+.hero-quote span a:hover {
+    color: #ffffff; /* Turns bright white on hover */
+    border-bottom-color: #ffffff; /* Underline glows white too */
+}
+
+/* --- SOCIALS --- */
+.hero-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    padding-top: 30px; 
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.location-label {
+    font-size: 11px; 
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888888;
+    font-weight: 600;
+}
+
+.social-icons {
+    display: flex;
+    gap: 25px; /* Spacing between icons */
+    align-items: center;
+}
+
+/* This targets the icons specifically */
+.social-icons ion-icon {
+    font-size: 20px; /* Size of the icon */
+    color: #cccccc;  /* Light grey color */
+    transition: all 0.2s ease;
+}
+
+.social-icons ion-icon:hover {
+    color: #ffffff; /* White on hover */
+    transform: translateY(-2px);
+}
+
+/* Update this section to include 'svg' */
+.social-icons ion-icon, 
+.social-icons svg {
+    font-size: 22px;      /* Sets size for Ionicons */
+    width: 20px;          /* Sets size for the X SVG */
+    height: 20px;         /* Sets size for the X SVG */
+    color: #cccccc;       /* Default Color */
+    fill: #cccccc;        /* Default Fill for SVG */
+    transition: all 0.2s ease;
+}
+
+/* Update hover to include 'svg' */
+.social-icons a:hover ion-icon,
+.social-icons a:hover svg {
+    color: #ffffff;       /* Hover Color */
+    fill: #ffffff;        /* Hover Fill for SVG */
+    transform: translateY(-2px);
+}
+
+/* --- RESPONSIVE FIXES (Tablet & Mobile) --- */
+
+/* 1. TABLET & MOBILE (Screens narrower than 1024px) */
+@media (max-width: 1024px) {
+    #hero {
+        /* Reduces the top gap on tablets so it doesn't look empty */
+        padding-top: 80px;
+    }
+}
+
+/* 2. MOBILE ONLY (Screens narrower than 768px) */
+@media (max-width: 768px) {
+    
+    /* Fix: Tighter Navigation Bar */
+    nav {
+        padding: 16px 20px; /* Standard "App-like" spacing */
+        background-color: rgba(0, 0, 0, 0.85); /* Darker for better contrast */
+    }
+
+    /* Fix: Adjust Hero Spacing for small screens */
+    #hero {
+
+        min-height: auto;
+        height: auto;
+
+        padding-top: 140px; /* Clear the shorter nav */
+        padding-left: 20px; /* Safe edge spacing */
+        padding-right: 20px;
+        padding-bottom: 60px;
+        align-items: center; /* Ensures text is centered */
+        text-align: left;  /* Centers text if it wraps */
+    }
+
+    /* Fix: Hero Title Sizing */
+    .hero-title {
+        font-size: 42px; /* Fixed, robust size for mobile */
+        margin-bottom: 16px;
+    }
+    
+    /* Fix: Subtitle Sizing */
+    .hero-native {
+        font-size: 18px;
+    }
+
+    /* Fix: Link Spacing */
+    #quick-links {
+        gap: 20px; /* Brings Work/About closer together */
+    }
+    
+    /* Fix: Social Icons */
+    .hero-footer {
+        margin-top: 40px; /* Less space before footer */
+        align-items: start;
+    }
+}
+
+/* Hiding Scrollbar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+/* --- WORK SECTION --- */
+#work {
+    width: 100%;
+
+    /* Responsive padding (Matches Hero side padding) */
+    padding: 0 clamp(16px, 4vw, 64px) 120px; 
+    box-sizing: border-box;
+    
+    /* CENTERING MAGIC */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This centers the inner blocks */
+}
+
+/* 1. The Header Line & Label */
+.section-label {
+    width: 100%;
+    max-width: 600px; /* Limits width so it doesn't span full screen */
+    
+    margin-bottom: 40px;
+}
+
+.section-label span {
+    color: #666; 
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+}
+
+/* 2. The Project List */
+.work-grid {
+    width: 100%;
+    max-width: 600px; /* Limits width to match the header */
+    
+    display: flex;
+    flex-direction: column;
+}
+
+/* Individual Project Row */
+.work-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    color: #fff;
+    transition: opacity 0.3s ease;
+}
+
+/* Typography */
+.work-info h3 {
+    font-size: clamp(20px, 2.5vw, 28px); /* Responsive title */
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #fff;
+}
+
+.work-info p {
+    font-size: clamp(12px, 4vw, 16px);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+/* Arrow Icon */
+.work-arrow svg {
+    width: 24px;
+    height: 24px;
+    stroke: #444; 
+    transition: all 0.3s ease;
+}
+
+/* --- HOVER EFFECTS --- */
+.work-item:hover {
+    opacity: 1;
+}
+
+/* Dim other items (Optional: Creates focus) */
+/* This requires a parent hover, if you want simple hover, just use: */
+.work-item:hover .work-info p {
+    color: #bbb;
+}
+
+.work-item:hover .work-arrow svg {
+    stroke: #fff;
+    transform: translate(4px, -4px); /* Moves arrow Up-Right */
+}
+
+
+
+/* --- WORK SECTION RESPONSIVENESS --- */
+
+@media (max-width: 768px) {
+    /* 1. Allow full width on mobile so text doesn't wrap weirdly */
+    .section-label, 
+    .work-grid {
+        max-width: 100%; 
+    }
+
+    /* 2. Adjust project title size */
+    .work-info h3 {
+        font-size: 20px; /* readable size */
+    }
+    
+    /* 3. Adjust description size */
+    .work-info p {
+        font-size: 14px;
+        color: #999; /* slightly lighter for contrast */
+    }
+
+    /* 4. Fix row spacing */
+    .work-item {
+        padding: 24px 0; /* Tighter vertical spacing */
+        align-items: flex-start; /* Aligns arrow to top if text wraps */
+    }
+    
+    /* 5. Ensure arrow doesn't shrink */
+    .work-arrow {
+        margin-left: 16px;
+        min-width: 24px; /* Prevents squishing */
+    }
+}
+
+
+
+/* =========================================
+   EDITORIAL ARTICLE PAGE (Dhan App)
+========================================= */
+
+/* Center the article and set a maximum reading width */
+.editorial-container {
+    width: 100%;
+    max-width: 680px; /* Perfect width for comfortable reading */
+    margin: 0 auto;
+    padding: 80px 20px 120px 20px;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+/* Adding a container for back button */
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* Pushes items to the far edges */
+    align-items: center;
+    width: 100%;
+}
+
+/* Back Link */
+.editorial-back {
+    display: inline-block;
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 60px;
+    transition: color 0.2s ease;
+}
+
+/* Back Navigation Link */
+.editorial-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Space between arrow and text */
+    
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    
+    /* Layout spacing */
+    margin-bottom: 60px;
+    
+    /* Button Shape Properties (Invisible by default) */
+    padding: 12px 18px;
+    margin-left: -6px; /* Pulls it back so text aligns left */
+    border-radius: 4px;
+    
+    /* Smooth Transition */
+    transition: all 0.2s ease;
+}
+
+/* HOVER STATE (The Screenshot Look) */
+.editorial-back:hover {
+    background-color: #322d26; /* The Dark Warm Grey Background */
+    color: #ff6b6b; /* The Coral/Salmon Text Color */
+}
+
+/* Header Section */
+.editorial-meta {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+}
+
+.editorial-meta .highlight {
+    color: #6bff77; /* The reddish/coral accent color from the image */
+    font-style: normal;
+}
+
+.editorial-title {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: #fff;
+}
+
+.editorial-excerpt {
+    font-size: clamp(16px, 2vw, 20px);
+    font-style: italic;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #bbbbbb;
+    margin-bottom: 40px;
+}
+
+/* The subtle line */
+.editorial-divider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 40px;
+}
+
+.editorial-label {
+    width: 100%;
+    max-width: 600px; /* Limits width so it doesn't span full screen */
+    
+    margin-bottom: 20px;
+}
+
+.editorial-label span {
+    color: #ff6b6b;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+}
+
+.editorial-section-title {
+    /* Font & Typography */
+    font-family: "Inter Display", Inter, system-ui, sans-serif;
+    font-size: clamp(24px, 4vw, 32px); /* Large and bold */
+    font-weight: 500;
+    color: #f4f4f4;
+    letter-spacing: -0.01em;
+
+    /* Spacing */
+    padding-bottom: 4px; /* Space between text and line */
+    margin-top: 4px;     /* Space above this section */
+    margin-bottom: 12px;  /* Space below the line before paragraph starts */
+    
+    width: 100%;
+}
+
+/* Body Text (Using a Serif font for editorial feel) */
+.editorial-body {
+    font-family: "Inter Display", Inter, system-ui, sans-serif;
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.65;
+    letter-spacing: 0.02em;
+    color: #f4f4f4;
+}
+
+.editorial-body p {
+    margin-bottom: 24px;
+}
+
+
+
+/* --- FLOWCHART STYLES --- */
+
+.flow-container {
+    /* The outer container box */
+    width: 100%;
+    background-color: #191510; /* Very dark background */
+    border: 1px solid #4D472E; /* Subtle border */
+    border-radius: 4px;
+    padding: 32px 32px;
+    margin: 24px 0;
+   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.flow-node {
+    /* The individual steps (Buttons) */
+    background-color: #322D26; /* Lighter than background */
+    color: #f4f4f4;
+    font-family: "Inter Display", Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 12px 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.flow-arrow {
+    /* The arrow between nodes */
+    color: #4D473E;
+    font-size: 18px;
+    margin: 8px 0;
+    opacity: 0.8;
+}
+
+/* Special styling for the row with the side note */
+.flow-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .flow-container {
+        padding: 20px 20px;
+    }
+    
+    .flow-node {
+        font-size: 14px;
+        font-weight: 400;
+        padding: 10px 16px;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    /* On mobile, stack the note below the box */
+    .flow-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .flow-note {
+        font-size: 12px;
+        white-space: normal;
+        text-align: center;
+    }
+}
+
+
+
+/* --- MEDIA SHOWCASE (The Image Box) --- */
+.media-container {
+    /* Container Styling (Matches Flowchart) */
+    width: 100%;
+    background-color: #191510; /* Deep dark background */
+    border: 1px solid #4D472E; /* Subtle border */
+    border-radius: 4px;
+  
+    /* Spacing inside the box */
+    padding: 40px 40px; 
+    margin: 24px 0; /* Space between sections */
+    
+    /* Centering the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* The Image inside the container */
+.media-container img {
+    width: auto;            /* Let width scale naturally */
+    max-width: 100%;        /* Ensure it never overflows width-wise */
+    
+    /* CRITICAL: Limits height to 80% of the screen */
+    max-height: 80vh;       
+    
+    display: block;
+    
+    /* Centers the image if it's smaller than the container */
+    margin: 0 auto; 
+}
+
+/* --- CALLOUT COMPONENT --- */
+.callout-box {
+    /* Box Styling */
+    background-color: #191510; /* Slightly lighter than the page background */
+    border-left: 4px solid #ff6b6b; /* The Red/Coral Accent Bar */
+    border-radius: 4px; /* Slight rounding on corners */
+
+    border-top: 1px solid #4D472E;;
+    border-bottom: 1px solid #4D472E;;
+    border-right: 1px solid #4D472E;;
+    
+    /* Spacing */
+    padding: 20px 20px;
+    margin: 40px 0;
+    
+    /* Typography settings */
+    font-family: "Inter Display", Inter, sans-serif;
+    text-align: left;
+}
+
+.callout-title {
+    font-size: clamp(16px, 4vw, 18px);;
+    font-weight: 400;
+    font-style: italic;
+    color: #ffffff;
+    /* margin-bottom: 12px; */
+}
+
+/* .callout-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #cccccc;
+    margin: 0;
+} */
+
+/* Mobile Tweak */
+@media (max-width: 768px) {
+    .media-container {
+        padding: 40px 20px; /* Less padding on small screens */
+    }
+}
+
+
+
+/* --- LAYOUT WRAPPER (Grid System) --- */
+.layout-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px; /* Space between article and sidebar */
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Adjust the existing container to fit in the grid */
+.editorial-container {
+    margin: 0; /* Remove auto margins since wrapper handles centering */
+    max-width: 680px; /* Keep reading width */
+}
+
+/* --- SIDEBAR STYLING --- */
+.toc-sidebar {
+    width: 240px; /* Fixed width for sidebar */
+    display: none; /* Hidden by default on mobile */
+
+    position: sticky;
+    top: 100px;       /* Distance from top of screen */
+    height: fit-content; 
+    
+    /* Hidden on mobile/tablet by default */
+    display: none;
+}
+
+/* Show sidebar only on large screens */
+@media (min-width: 1100px) {
+    .toc-sidebar {
+        display: block;
+    }
+}
+
+.toc-sticky {
+    position: sticky;
+    top: 100px; /* Stays 100px from top while scrolling */
+}
+
+.toc-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-left: 1px solid rgba(255,255,255,0.1); /* Thin grey guide line */
+}
+
+.toc-list li {
+    margin-bottom: 0;
+}
+
+.toc-link {
+    display: block;
+    font-size: 14px;
+    color: #888;
+    text-decoration: none;
+    padding: 8px 0 8px 24px; /* Indent text */
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent; /* Invisible border for transition */
+    margin-left: -1px; /* Aligns border with the guide line */
+}
+
+.toc-link:hover {
+    color: #ccc;
+}
+
+/* --- ACTIVE STATE (The Red Line) --- */
+.toc-link.active {
+    color: #fff; /* White text */
+    border-left: 2px solid #ff6b6b; /* The Coral Accent Bar */
+    background: linear-gradient(90deg, rgba(255, 107, 107, 0.05) 0%, transparent 100%); /* Optional faint glow */
+}
