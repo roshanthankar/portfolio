@@ -1,8 +1,181 @@
+/* =========================================
+   0. DESIGN TOKENS (The Single Source of Truth)
+   ========================================= */
+
+/* --- DARK MODE (DEFAULT) --- */
+:root {
+    /* Colors */
+    --color-bg-base: #000000;         
+    --color-bg-surface: #191510;      
+    --color-bg-surface-hover: #2a251e; 
+    
+    --color-nav-glass: rgba(0, 0, 0, 0.6); 
+    --color-nav-glass-mobile: rgba(0, 0, 0, 0.85);
+    
+    --color-white: #ffffff;           
+    --color-text-offwhite: #f4f4f4;   
+    --color-text-grey-light: #bbbbbb; 
+    --color-text-grey-mid: #999999;
+    --color-text-grey: #a3a3a3;       
+    --color-text-grey-dark: #767676;  
+    
+    --color-accent: #ff6b6b;          
+    --color-success: #6bff77;         
+    
+    /* Alpha / Transparent Colors */
+    --color-border-subtle: rgba(255, 255, 255, 0.1); 
+    --color-border-solid: #4D472E;    
+    --color-white-alpha-15: rgba(255, 255, 255, 0.15);
+    --color-white-alpha-30: rgba(255, 255, 255, 0.3);
+    --color-white-alpha-50: rgba(255, 255, 255, 0.5);
+    --color-accent-alpha-05: rgba(255, 107, 107, 0.05);
+
+    /* --- Typography Families --- */
+    --font-family-base: "Inter Display", Inter, system-ui, sans-serif;
+    
+    /* --- Font Sizes --- */
+    --font-size-11: 11px;
+    --font-size-12: 12px;
+    --font-size-14: 14px;
+    --font-size-15: 15px;
+    --font-size-16: 16px;
+    --font-size-18: 18px;
+    --font-size-20: 20px;
+    --font-size-22: 22px;
+    --font-size-24: 24px;
+    --font-size-28: 28px;
+    --font-size-32: 32px;
+    --font-size-42: 42px;
+    --font-size-48: 48px;
+    --font-size-64: 64px;
+
+    /* --- Font Weights --- */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+
+    /* --- Line Heights --- */
+    --line-height-heading: 1.2;
+    --line-height-tight: 1.3;
+    --line-height-snug: 1.4;
+    --line-height-base: 1.5;
+    --line-height-relaxed: 1.6;
+    --line-height-loose: 1.65;
+    --line-height-editorial: 1.7;
+
+    /* --- Letter Spacing --- */
+    --letter-spacing-tighter: -0.02em;
+    --letter-spacing-tight: -0.01em;
+    --letter-spacing-normal: 0em;
+    --letter-spacing-wide: 0.01em;
+    --letter-spacing-wider: 0.02em;
+    --letter-spacing-widest: 0.15em;
+    --letter-spacing-caps: 0.2em;
+
+    /* --- Opacity System --- */
+    --opacity-full: 1;
+    --opacity-high: 0.9;
+    --opacity-med-high: 0.8;
+    --opacity-med: 0.6;
+    
+    /* --- Absolute Spacing Scale (Pixels) --- */
+    --spacing-1: 1px;
+    --spacing-2: 2px;
+    --spacing-4: 4px;
+    --spacing-6: 6px;
+    --spacing-8: 8px;
+    --spacing-10: 10px;
+    --spacing-12: 12px;
+    --spacing-14: 14px;
+    --spacing-16: 16px;
+    --spacing-18: 18px;
+    --spacing-20: 20px;
+    --spacing-22: 22px;
+    --spacing-24: 24px;
+    --spacing-30: 30px;
+    --spacing-32: 32px;
+    --spacing-40: 40px;
+    --spacing-48: 48px;
+    --spacing-60: 60px;
+    --spacing-64: 64px;
+    --spacing-80: 80px;
+    --spacing-100: 100px;
+    --spacing-120: 120px;
+    --spacing-140: 140px;
+    --spacing-160: 160px;
+    --spacing-240: 240px;
+
+    /* --- Layout / Container Widths --- */
+    --container-width-md: 600px;
+    --container-width-lg: 680px;
+    --container-width-hero: 800px;
+    --container-width-xl: 1100px;
+
+    /* --- Borders & Radii --- */
+    --border-width-1: 1px;
+    --border-width-2: 2px;
+    --border-width-4: 4px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+
+    /* --- Effects & Blurs --- */
+    --blur-md: 12px;
+
+    /* --- Transitions --- */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+
+    /* --- Z-Index Levels --- */
+    --z-index-behind: -1;
+    --z-index-base: 1;
+    --z-index-floating: 10;
+    --z-index-nav: 999;
+}
+
+/* --- LIGHT MODE (MANUAL TOGGLE) --- */
+:root.light-mode {
+    /* Base & Surfaces (Warm off-whites) */
+    --color-bg-base: #ffffff;         
+    --color-bg-surface: #f9f8f6;    
+    --color-bg-surface-hover: #f1efeb; 
+    
+    --color-nav-glass: rgba(249, 248, 246, 0.85); 
+    --color-nav-glass-mobile: rgba(249, 248, 246, 0.95);
+    
+    /* Typography Scale (Inverted for Light Mode) */
+    --color-white: #111111;           /* Replaces white with almost-black */
+    --color-text-offwhite: #333333;   
+    --color-text-grey-light: #444444; 
+    --color-text-grey-mid: #555555;
+    --color-text-grey: #666666;       
+    --color-text-grey-dark: #767676;  /* Lowest contrast allowed for AA */
+    
+    /* Accessible Brand Accents */
+    --color-accent: #d90429;          /* Deepened Crimson/Coral for 4.5:1 contrast */
+    --color-success: #0a861a;         /* Deepened Green for readability */
+    
+    /* Alpha / Transparent Colors */
+    --color-border-subtle: rgba(0, 0, 0, 0.08); 
+    --color-border-solid: #d6d3cd;    /* A warm light-grey border */
+    --color-white-alpha-15: rgba(0, 0, 0, 0.15);
+    --color-white-alpha-30: rgba(0, 0, 0, 0.3);
+    --color-white-alpha-50: rgba(0, 0, 0, 0.5);
+    --color-accent-alpha-05: rgba(217, 4, 41, 0.05);
+}
+
+/* FIX: Invert the white logo to black when Light Mode is active */
+:root.light-mode .logo {
+    filter: invert(1);
+}
+
+/* =========================================
+   1. BASE RESETS & GLOBALS
+   ========================================= */
 @font-face {
-  font-family: "Inter Display";
-  src: url("/fonts/Inter-Display.woff2") format("woff2");
-  font-weight: 100 900;
-  font-display: swap;
+    font-family: "Inter Display";
+    src: url("/fonts/Inter-Display.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
 }
 
 * {
@@ -14,838 +187,726 @@
 html, body {
     height: 100%;
     width: 100%;
-    background-color: rgb(0, 0, 0);
-
-    font-family: "Inter Display", Inter, system-ui, sans-serif;
-
+    background-color: var(--color-bg-base);
+    color: var(--color-white);
+    font-family: var(--font-family-base);
+    
     font-variant-ligatures: common-ligatures;
+    font-feature-settings: "liga" 1, "cv01" 1, "cv08" 1, "cv09" 1, "cv11" 1, "cv13" 1;
 
-    font-feature-settings:
-    "liga" 1,
-    "cv01" 1,
-    "cv08" 1,
-    "cv09" 1,
-    "cv11" 1,
-    "cv13" 1;
-
-    scrollbar-width: none;  /* Firefox */
-    -ms-overflow-style: none;  /* IE and Edge */
-
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
     scroll-behavior: smooth;
 }
 
-#home{
-    height: 100vh;
-    width: 100%;
-    background-color: black;
-    position: relative;
-}
-
-/* NAVIGATION */
-
-nav {
-    /* 1. STICKY POSITIONING */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999; /* Ensures it sits ABOVE the hero content when scrolling */
-
-    /* 2. FROSTED GLASS EFFECT */
-    background-color: rgba(0, 0, 0, 0.6); 
-    backdrop-filter: blur(12px);         /* The Blur Magic */
-    -webkit-backdrop-filter: blur(12px); /* Required for Safari/iPhone */
-
-    /* 3. YOUR EXISTING STYLES (Preserved) */
-    padding: clamp(6px, 1vw, 12px) clamp(16px, 12vw, 240px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #fff;
-    border-bottom: 1px solid #ffffff2a;
-}
-
-#work {
-    scroll-margin-top: 100px;
-}
-
-.logo {
-    display: inline-block;
-    width: auto; /* Maintains aspect ratio */
-    
-    /* Min: 12px (Mobile) | Target: 2% of screen | Max: 16px (Desktop) */
-    height: clamp(12px, 2vw, 16px);
-    
-    opacity: 0.8; /* Optional: matches the reference style */
-}
-
-#quick-links{
-    display: flex;
-    gap: clamp(12px, 2vw, 32px);
-}
-
-#quick-links h4 {
-    padding: clamp(8px, 1vw, 12px) clamp(8px, 2vw, 16px);
-}
-
-nav a {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 400;
-  opacity: 0.8;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-nav a:hover {
-    opacity: 1;
-}
-
-
-
-/* CENTER CONTENT */
-
-#hero {
-  min-height: 100dvh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  padding: 120px clamp(16px, 4vw, 64px) clamp(40px, 4vw, 64px);
-}
-
-.hero-title {
-  font-size: clamp(24px, 8vw, 64px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: clamp(16px, 5.5vw, 20px);
-  word-wrap: break-word;
-}
-
-.hero-native {
-  font-size: clamp(18px, 2vw, 24px);
-  letter-spacing: 0.01em;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.dhan-link {
-    color: #ffffff;
-    
-    /* 2. The Underline Styling */
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.15); /* Same color as text */
-    text-decoration-thickness: 1.5px; /* Slightly thicker than default */
-    text-underline-offset: 4px; /* Pushes the line down (Critical for this look) */
-    
-    /* 3. Transition for smooth hover */
-    transition: all 0.2s ease;
-}
-
-/* Hover Effect: Brightens slightly */
-.dhan-link:hover {
-    color: #ffffff; 
-    text-decoration-color: rgba(255, 255, 255, 0.5);
-}
-
-.hero-quote {
-  max-width: 600px;
-  margin-top: clamp(20px, 4vw, 40px);
-  font-size: clamp(16px, 1.5vw, 22px);
-  line-height: 1.5;
-  letter-spacing: 0.001em;
-  font-weight: 400;
-  opacity: 0.60;
-}
-
-.hero-quote span {
-  display: block;
-  margin-top: clamp(16px, 4vw, 32px);
-  font-size: clamp(14px, 1.5vw, 16px);
-  letter-spacing: 0.01em;
-  opacity: 0.65;
-  font-style: italic;
-}
-
-/* Styling the link inside the quote attribution */
-.hero-quote span a {
-    color: inherit; /* Keeps it the same grey as the text */
-    text-decoration: none; /* Removes default ugly blue underline */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Adds a premium, thin underline */
-    transition: all 0.2s ease;
-}
-
-.hero-quote span a:hover {
-    color: #ffffff; /* Turns bright white on hover */
-    border-bottom-color: #ffffff; /* Underline glows white too */
-}
-
-/* --- SOCIALS --- */
-.hero-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.1); 
-    padding-top: 30px; 
-    margin-top: 60px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.location-label {
-    font-size: 11px; 
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #888888;
-    font-weight: 600;
-}
-
-.social-icons {
-    display: flex;
-    gap: 25px; /* Spacing between icons */
-    align-items: center;
-}
-
-/* This targets the icons specifically */
-.social-icons ion-icon {
-    font-size: 20px; /* Size of the icon */
-    color: #cccccc;  /* Light grey color */
-    transition: all 0.2s ease;
-}
-
-.social-icons ion-icon:hover {
-    color: #ffffff; /* White on hover */
-    transform: translateY(-2px);
-}
-
-/* Update this section to include 'svg' */
-.social-icons ion-icon, 
-.social-icons svg {
-    font-size: 22px;      /* Sets size for Ionicons */
-    width: 20px;          /* Sets size for the X SVG */
-    height: 20px;         /* Sets size for the X SVG */
-    color: #cccccc;       /* Default Color */
-    fill: #cccccc;        /* Default Fill for SVG */
-    transition: all 0.2s ease;
-}
-
-/* Update hover to include 'svg' */
-.social-icons a:hover ion-icon,
-.social-icons a:hover svg {
-    color: #ffffff;       /* Hover Color */
-    fill: #ffffff;        /* Hover Fill for SVG */
-    transform: translateY(-2px);
-}
-
-/* --- RESPONSIVE FIXES (Tablet & Mobile) --- */
-
-/* 1. TABLET & MOBILE (Screens narrower than 1024px) */
-@media (max-width: 1024px) {
-    #hero {
-        /* Reduces the top gap on tablets so it doesn't look empty */
-        padding-top: 80px;
-    }
-}
-
-/* 2. MOBILE ONLY (Screens narrower than 768px) */
-@media (max-width: 768px) {
-    
-    /* Fix: Tighter Navigation Bar */
-    nav {
-        padding: 16px 20px; /* Standard "App-like" spacing */
-        background-color: rgba(0, 0, 0, 0.85); /* Darker for better contrast */
-    }
-
-    /* Fix: Adjust Hero Spacing for small screens */
-    #hero {
-
-        min-height: auto;
-        height: auto;
-
-        padding-top: 140px; /* Clear the shorter nav */
-        padding-left: 20px; /* Safe edge spacing */
-        padding-right: 20px;
-        padding-bottom: 60px;
-        align-items: center; /* Ensures text is centered */
-        text-align: left;  /* Centers text if it wraps */
-    }
-
-    /* Fix: Hero Title Sizing */
-    .hero-title {
-        font-size: 42px; /* Fixed, robust size for mobile */
-        margin-bottom: 16px;
-    }
-    
-    /* Fix: Subtitle Sizing */
-    .hero-native {
-        font-size: 18px;
-    }
-
-    /* Fix: Link Spacing */
-    #quick-links {
-        gap: 20px; /* Brings Work/About closer together */
-    }
-    
-    /* Fix: Social Icons */
-    .hero-footer {
-        margin-top: 40px; /* Less space before footer */
-        align-items: start;
-    }
-}
-
-/* Hiding Scrollbar */
 ::-webkit-scrollbar {
     display: none;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
+/* Accessibility Focus States */
+a:focus-visible, 
+button:focus-visible {
+    outline: var(--border-width-2) solid var(--color-accent);
+    outline-offset: var(--spacing-4);
+    border-radius: var(--border-radius-sm);
+}
 
-/* --- WORK SECTION --- */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* =========================================
+   2. GLOBAL NAVIGATION
+   ========================================= */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: var(--z-index-nav); 
+    
+    background-color: var(--color-nav-glass); 
+    backdrop-filter: blur(var(--blur-md));         
+    -webkit-backdrop-filter: blur(var(--blur-md)); 
+    
+    padding: clamp(var(--spacing-6), 1vw, var(--spacing-12)) clamp(var(--spacing-16), 12vw, var(--spacing-240));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--color-white);
+    border-bottom: var(--border-width-1) solid var(--color-border-subtle);
+}
+
+.logo {
+    display: inline-block;
+    width: auto; 
+    height: clamp(var(--spacing-12), 2vw, var(--spacing-16));
+    opacity: var(--opacity-high); 
+}
+
+#quick-links {
+    display: flex;
+    gap: clamp(var(--spacing-12), 2vw, var(--spacing-32));
+}
+
+#quick-links h4 {
+    padding: clamp(var(--spacing-8), 1vw, var(--spacing-12)) clamp(var(--spacing-8), 2vw, var(--spacing-16));
+}
+
+nav a {
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-white);
+    opacity: var(--opacity-high);
+    transition: opacity var(--transition-fast);
+}
+
+nav a:hover {
+    opacity: var(--opacity-full);
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: var(--font-size-20);
+    cursor: pointer;
+    padding: 0;
+    margin-left: var(--spacing-8); /* Adds a little breathing room from the Work link */
+    opacity: var(--opacity-high);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+}
+
+#theme-toggle:hover {
+    opacity: var(--opacity-full);
+    transform: translateY(calc(var(--spacing-2) * -1));
+}
+
+/* =========================================
+   3. HOME: HERO SECTION
+   ========================================= */
+#main {
+    position: relative;
+    width: 100%;
+}
+
+#home {
+    height: 100vh;
+    width: 100%;
+    background-color: var(--color-bg-base);
+    position: relative;
+}
+
+#hero {
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-white);
+    padding: var(--spacing-120) clamp(var(--spacing-16), 4vw, var(--spacing-64)) clamp(var(--spacing-40), 4vw, var(--spacing-64));
+}
+
+.hero-content {
+    /* Lets child elements define width natively */
+}
+
+.hero-title {
+    font-size: clamp(var(--font-size-24), 8vw, var(--font-size-64));
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-tighter);
+    line-height: var(--line-height-heading);
+    margin-bottom: clamp(var(--spacing-16), 5.5vw, var(--spacing-20));
+    word-wrap: break-word;
+}
+
+.hero-native {
+    font-size: clamp(var(--font-size-18), 2vw, var(--font-size-24));
+    letter-spacing: var(--letter-spacing-wide);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-base);
+}
+
+.dhan-link {
+    color: var(--color-white);
+    text-decoration: underline;
+    text-decoration-color: var(--color-white-alpha-15); 
+    text-decoration-thickness: 1.5px; 
+    text-underline-offset: var(--spacing-4); 
+    transition: all var(--transition-fast);
+}
+
+.dhan-link:hover {
+    text-decoration-color: var(--color-white-alpha-50);
+}
+
+.hero-quote {
+    max-width: var(--container-width-md);
+    margin-top: clamp(var(--spacing-20), 4vw, var(--spacing-40));
+    font-size: clamp(var(--font-size-16), 1.5vw, var(--font-size-22));
+    line-height: var(--line-height-base);
+    font-weight: var(--font-weight-regular);
+    opacity: var(--opacity-med);
+}
+
+.hero-quote span {
+    display: block;
+    margin-top: clamp(var(--spacing-16), 4vw, var(--spacing-32));
+    font-size: clamp(var(--font-size-14), 1.5vw, var(--font-size-16));
+    letter-spacing: var(--letter-spacing-wide);
+    opacity: var(--opacity-med-high);
+    font-style: italic;
+}
+
+.hero-quote span a {
+    border-bottom: var(--border-width-1) solid var(--color-white-alpha-30); 
+    transition: all var(--transition-fast);
+}
+
+.hero-quote span a:hover {
+    color: var(--color-white); 
+    border-bottom-color: var(--color-white); 
+}
+
+/* --- Socials --- */
+.hero-footer {
+    border-top: var(--border-width-1) solid var(--color-border-subtle); 
+    padding-top: var(--spacing-30); 
+    margin-top: var(--spacing-60);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-20);
+}
+
+.location-label {
+    font-size: var(--font-size-11); 
+    letter-spacing: var(--letter-spacing-widest);
+    text-transform: uppercase;
+    color: var(--color-text-grey-dark);
+    font-weight: var(--font-weight-semibold);
+}
+
+.social-icons {
+    display: flex;
+    gap: var(--spacing-24); 
+    align-items: center;
+}
+
+.social-icons ion-icon, 
+.social-icons svg {
+    font-size: var(--spacing-22);      
+    width: var(--spacing-20);          
+    height: var(--spacing-20);         
+    color: var(--color-text-grey-light);      
+    fill: var(--color-text-grey-light);        
+    transition: all var(--transition-fast);
+}
+
+.social-icons a:hover ion-icon,
+.social-icons a:hover svg {
+    color: var(--color-white);       
+    fill: var(--color-white);        
+    transform: translateY(calc(var(--spacing-2) * -1));
+}
+
+/* =========================================
+   4. HOME: WORK SECTION
+   ========================================= */
 #work {
     width: 100%;
-
-    /* Responsive padding (Matches Hero side padding) */
-    padding: 0 clamp(16px, 4vw, 64px) 120px; 
-    box-sizing: border-box;
-    
-    /* CENTERING MAGIC */
+    padding: 0 clamp(var(--spacing-16), 4vw, var(--spacing-64)) var(--spacing-120); 
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center; /* This centers the inner blocks */
+    align-items: center;
+    scroll-margin-top: var(--spacing-100);
 }
 
-/* 1. The Header Line & Label */
 .section-label {
     width: 100%;
-    max-width: 600px; /* Limits width so it doesn't span full screen */
-    
-    margin-bottom: 40px;
+    max-width: var(--container-width-md); 
+    margin-bottom: var(--spacing-40);
 }
 
 .section-label span {
-    color: #666; 
-    font-size: 12px;
+    color: var(--color-text-grey-dark); 
+    font-size: var(--font-size-12);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 600;
+    letter-spacing: var(--letter-spacing-widest);
+    font-weight: var(--font-weight-semibold);
 }
 
-/* 2. The Project List */
 .work-grid {
     width: 100%;
-    max-width: 600px; /* Limits width to match the header */
-    
+    max-width: var(--container-width-md); 
     display: flex;
     flex-direction: column;
 }
 
-/* Individual Project Row */
 .work-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 32px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-decoration: none;
-    color: #fff;
-    transition: opacity 0.3s ease;
+    padding: var(--spacing-32) 0;
+    border-bottom: var(--border-width-1) solid var(--color-border-subtle);
+    transition: opacity var(--transition-base);
+    color: var(--color-white);
 }
 
-/* Typography */
 .work-info h3 {
-    font-size: clamp(20px, 2.5vw, 28px); /* Responsive title */
-    font-weight: 500;
-    margin-bottom: 16px;
-    color: #fff;
+    font-size: clamp(var(--font-size-20), 2.5vw, var(--font-size-28)); 
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-16);
+    color: var(--color-white);
 }
 
 .work-info p {
-    font-size: clamp(12px, 4vw, 16px);
-    letter-spacing: 0.02em;
-    line-height: 1.5;
-    color: #888;
-    transition: color 0.3s ease;
+    font-size: clamp(var(--font-size-12), 4vw, var(--font-size-16));
+    letter-spacing: var(--letter-spacing-wider);
+    line-height: var(--line-height-base);
+    color: var(--color-text-grey-dark);
+    transition: color var(--transition-base);
 }
 
-/* Arrow Icon */
 .work-arrow svg {
-    width: 24px;
-    height: 24px;
-    stroke: #444; 
-    transition: all 0.3s ease;
+    width: var(--spacing-24);
+    height: var(--spacing-24);
+    stroke: var(--color-text-grey-dark); 
+    transition: all var(--transition-base);
 }
 
-/* --- HOVER EFFECTS --- */
 .work-item:hover {
-    opacity: 1;
+    opacity: var(--opacity-full);
 }
 
-/* Dim other items (Optional: Creates focus) */
-/* This requires a parent hover, if you want simple hover, just use: */
 .work-item:hover .work-info p {
-    color: #bbb;
+    color: var(--color-text-grey-light); 
 }
 
 .work-item:hover .work-arrow svg {
-    stroke: #fff;
-    transform: translate(4px, -4px); /* Moves arrow Up-Right */
+    stroke: var(--color-white);
+    transform: translate(var(--spacing-4), calc(var(--spacing-4) * -1)); 
 }
-
-
-
-/* --- WORK SECTION RESPONSIVENESS --- */
-
-@media (max-width: 768px) {
-    /* 1. Allow full width on mobile so text doesn't wrap weirdly */
-    .section-label, 
-    .work-grid {
-        max-width: 100%; 
-    }
-
-    /* 2. Adjust project title size */
-    .work-info h3 {
-        font-size: 20px; /* readable size */
-    }
-    
-    /* 3. Adjust description size */
-    .work-info p {
-        font-size: 14px;
-        color: #999; /* slightly lighter for contrast */
-    }
-
-    /* 4. Fix row spacing */
-    .work-item {
-        padding: 24px 0; /* Tighter vertical spacing */
-        align-items: flex-start; /* Aligns arrow to top if text wraps */
-    }
-    
-    /* 5. Ensure arrow doesn't shrink */
-    .work-arrow {
-        margin-left: 16px;
-        min-width: 24px; /* Prevents squishing */
-    }
-}
-
-
 
 /* =========================================
-   EDITORIAL ARTICLE PAGE
-========================================= */
+   5. CASE STUDY: EDITORIAL LAYOUT
+   ========================================= */
+.layout-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--spacing-60); 
+    max-width: var(--container-width-xl);
+    margin: 0 auto;
+    position: relative;
+    padding: 0 var(--spacing-20);
+}
 
-/* Center the article and set a maximum reading width */
 .editorial-container {
     width: 100%;
-    max-width: 680px; /* Perfect width for comfortable reading */
-    margin: 0 auto;
-    padding: 80px 20px 120px 20px;
+    max-width: var(--container-width-lg); 
+    margin: 0 auto; 
+    padding: var(--spacing-80) 0 var(--spacing-120) 0; 
     box-sizing: border-box;
-    color: #fff;
+    color: var(--color-white);
 }
 
-/* Adding a container for back button */
 .nav-container {
     display: flex;
-    justify-content: space-between; /* Pushes items to the far edges */
+    justify-content: space-between; 
     align-items: center;
     width: 100%;
+    margin-bottom: var(--spacing-48);
 }
 
-/* Back Link */
-.editorial-back {
-    display: inline-block;
-    color: #888;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 60px;
-    transition: color 0.2s ease;
-}
-
-/* Back Navigation Link */
 .editorial-back {
     display: inline-flex;
     align-items: center;
-    gap: 8px; /* Space between arrow and text */
-    
-    color: #888;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    
-    /* Layout spacing */
-    margin-bottom: 60px;
-    
-    /* Button Shape Properties (Invisible by default) */
-    padding: 12px 18px;
-    margin-left: -6px; /* Pulls it back so text aligns left */
-    border-radius: 4px;
-    
-    /* Smooth Transition */
-    transition: all 0.2s ease;
+    gap: var(--spacing-8); 
+    color: var(--color-text-grey-dark);
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-medium);
+    padding: var(--spacing-12) var(--spacing-18);
+    margin-left: calc(var(--spacing-6) * -1); 
+    border-radius: var(--border-radius-sm);
+    transition: all var(--transition-fast);
 }
 
-/* HOVER STATE (The Screenshot Look) */
 .editorial-back:hover {
-    background-color: #322d26; /* The Dark Warm Grey Background */
-    color: #ff6b6b; /* The Coral/Salmon Text Color */
+    background-color: var(--color-bg-surface-hover); 
+    color: var(--color-accent); 
 }
 
-/* Header Section */
+/* Header Elements */
 .editorial-meta {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 16px;
-    letter-spacing: 0.02em;
+    font-size: var(--font-size-14);
+    color: var(--color-text-grey-dark);
+    margin-bottom: var(--spacing-16);
+    letter-spacing: var(--letter-spacing-wider);
 }
 
 .editorial-meta .highlight {
-    color: #6bff77; /* The reddish/coral accent color from the image */
+    color: var(--color-success); 
     font-style: normal;
 }
 
 .editorial-title {
-    font-size: clamp(32px, 5vw, 48px);
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    margin-bottom: 24px;
-    color: #fff;
+    font-size: clamp(var(--font-size-32), 5vw, var(--font-size-48));
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    letter-spacing: var(--letter-spacing-tighter);
+    margin-bottom: var(--spacing-24);
+    color: var(--color-white);
 }
 
 .editorial-excerpt {
-    font-size: clamp(16px, 2vw, 20px);
+    font-size: clamp(var(--font-size-16), 2vw, var(--font-size-20));
     font-style: italic;
-    line-height: 1.5;
-    letter-spacing: 0.02em;
-    color: #bbbbbb;
-    margin-bottom: 40px;
+    line-height: var(--line-height-base);
+    letter-spacing: var(--letter-spacing-wider);
+    color: var(--color-text-grey-light);
+    margin-bottom: var(--spacing-40);
 }
 
-/* The subtle line */
 .editorial-divider {
     border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 40px;
+    border-top: var(--border-width-1) solid var(--color-border-subtle);
+    margin-bottom: var(--spacing-40);
 }
 
+/* Body Elements */
 .editorial-label {
     width: 100%;
-    max-width: 600px; /* Limits width so it doesn't span full screen */
-    
-    margin-bottom: 20px;
+    max-width: var(--container-width-md);
+    margin-bottom: var(--spacing-20);
 }
 
 .editorial-label span {
-    color: #ff6b6b;
-    font-size: 12px;
+    color: var(--color-accent);
+    font-size: var(--font-size-12);
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-weight: 600;
+    letter-spacing: var(--letter-spacing-caps);
+    font-weight: var(--font-weight-semibold);
 }
 
 .editorial-section-title {
-    /* Font & Typography */
-    font-family: "Inter Display", Inter, system-ui, sans-serif;
-    font-size: clamp(24px, 4vw, 32px); /* Large and bold */
-    font-weight: 500;
-    color: #f4f4f4;
-    letter-spacing: -0.01em;
-    line-height: 1.5;
-
-    /* Spacing */
-    padding-bottom: 4px; /* Space between text and line */
-    margin-top: 4px;     /* Space above this section */
-    margin-bottom: 12px;  /* Space below the line before paragraph starts */
-    
+    font-size: clamp(var(--font-size-24), 4vw, var(--font-size-32)); 
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-offwhite);
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-base);
+    padding-bottom: var(--spacing-4); 
+    margin-top: var(--spacing-4);     
+    margin-bottom: var(--spacing-12);  
     width: 100%;
 }
 
-/* Body Text (Using a Serif font for editorial feel) */
 .editorial-body {
-    font-family: "Inter Display", Inter, system-ui, sans-serif;
-    font-size: clamp(16px, 2vw, 18px);
-    line-height: 1.65;
-    letter-spacing: 0.02em;
-    color: #f4f4f4;
+    font-size: clamp(var(--font-size-16), 2vw, var(--font-size-18));
+    line-height: var(--line-height-loose);
+    letter-spacing: var(--letter-spacing-wider);
+    color: var(--color-text-offwhite);
 }
 
 .editorial-body p {
-    margin-bottom: 24px;
+    margin-bottom: var(--spacing-24);
 }
 
+/* Editorial Lists & Tables */
+.editorial-body ul {
+    margin: 0 0 var(--spacing-24) var(--spacing-20);
+    padding: 0;
+}
 
+.editorial-body li {
+    margin-bottom: var(--spacing-12);
+    line-height: var(--line-height-relaxed);
+}
 
-/* --- FLOWCHART STYLES --- */
-
-.flow-container {
-    /* The outer container box */
+.editorial-body table {
     width: 100%;
-    background-color: #191510; /* Very dark background */
-    border: 1px solid #4D472E; /* Subtle border */
-    border-radius: 4px;
-    padding: 32px 32px;
-    margin: 24px 0;
-   
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
+    margin-bottom: var(--spacing-24);
+    border-collapse: collapse;
+    text-align: left;
 }
 
-.flow-node {
-    /* The individual steps (Buttons) */
-    background-color: #322D26; /* Lighter than background */
-    color: #f4f4f4;
-    font-family: "Inter Display", Inter, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 12px 20px;
-    border-radius: 4px;
-    text-align: center;
+.editorial-body table td {
+    padding: 0 0 var(--spacing-16) 0;
+    vertical-align: top;
 }
 
-.flow-arrow {
-    /* The arrow between nodes */
-    color: #4D473E;
-    font-size: 18px;
-    margin: 8px 0;
-    opacity: 0.8;
+.editorial-body table td p {
+    margin-bottom: 0;
+    font-size: var(--font-size-16);
+    color: var(--color-text-grey-light);
 }
 
-/* Special styling for the row with the side note */
-.flow-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    position: relative;
-}
+/* =========================================
+   6. COMPONENTS (Media, Cards, Flow)
+   ========================================= */
 
-/* --- MOBILE RESPONSIVENESS --- */
-@media (max-width: 768px) {
-    .flow-container {
-        padding: 20px 20px;
-    }
-    
-    .flow-node {
-        font-size: 14px;
-        font-weight: 400;
-        padding: 10px 16px;
-        border-radius: 4px;
-        text-align: center;
-    }
-
-    /* On mobile, stack the note below the box */
-    .flow-row {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .flow-note {
-        font-size: 12px;
-        white-space: normal;
-        text-align: center;
-    }
-}
-
-
-
-/* --- MEDIA SHOWCASE (The Image Box) --- */
+/* --- Media Container --- */
 .media-container {
-    /* Container Styling (Matches Flowchart) */
     width: 100%;
-    background-color: #191510; /* Deep dark background */
-    border: 1px solid #4D472E; /* Subtle border */
-    border-radius: 4px;
-  
-    /* Spacing inside the box */
-    padding: 40px 40px; 
-    margin: 24px 0; /* Space between sections */
-    
-    /* Centering the image */
+    background-color: var(--color-bg-surface); 
+    border: var(--border-width-1) solid var(--color-border-solid); 
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-40); 
+    margin: var(--spacing-24) 0; 
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
     overflow: hidden;
 }
 
-/* The Image inside the container */
 .media-container img {
-    width: auto;            /* Let width scale naturally */
-    max-width: 100%;        /* Ensure it never overflows width-wise */
-    
-    /* CRITICAL: Limits height to 80% of the screen */
+    width: auto;            
+    max-width: 100%;        
     max-height: 80vh;       
-    
     display: block;
-    
-    /* Centers the image if it's smaller than the container */
     margin: 0 auto; 
 }
 
+/* --- Flowchart --- */
+.flow-container {
+    width: 100%;
+    background-color: var(--color-bg-surface); 
+    border: var(--border-width-1) solid var(--color-border-solid); 
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-32);
+    margin: var(--spacing-24) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.flow-node {
+    background-color: var(--color-bg-surface-hover); 
+    color: var(--color-text-offwhite);
+    font-size: var(--font-size-16);
+    font-weight: var(--font-weight-regular);
+    padding: var(--spacing-12) var(--spacing-20);
+    border-radius: var(--border-radius-sm);
+    text-align: center;
+    border: var(--border-width-1) solid var(--color-border-subtle);
+}
 
-/* --- Text CONTAINER --- */
+.flow-arrow {
+    color: var(--color-border-solid);
+    font-size: var(--font-size-18);
+    margin: var(--spacing-8) 0;
+    opacity: var(--opacity-high);
+}
+
+.flow-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    position: relative;
+}
+
+/* --- Text Container --- */
 .text-container {
     display: grid;
-    /* Automatically creates columns that fit, minimum 240px wide */
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
+    gap: var(--spacing-20);
     width: 100%;
-    /* margin: 32px 0 40px 0; */
+    margin: var(--spacing-32) 0;
 }
 
 .text-card {
-    background-color: #191510; /* Matches your other containers */
-    border: 1px solid #4D472E; /* Subtle dark-gold/brown border */
-    border-radius: 4px;
-    padding: 24px 24px 6px;
+    background-color: var(--color-bg-surface); 
+    border: var(--border-width-1) solid var(--color-border-solid); 
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-24);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-/* --- MOBILE RESPONSIVENESS FOR METRICS --- */
-@media (max-width: 768px) {
-    .text-container {
-        grid-template-columns: 1fr; /* Force 1 column on mobile */
-        gap: 16px;
-        margin: 24px 0;
-    }
-    
-    .text-card {
-        padding: 24px 20px 4px;
-    }
+.text-card p {
+    margin-bottom: var(--spacing-12);
+    font-size: clamp(var(--font-size-16), 4vw, var(--font-size-18));
+    font-weight: var(--font-weight-regular);
 }
 
+.text-card p:last-child {
+    margin-bottom: 0;
+}
 
-
-/* --- CALLOUT COMPONENT --- */
+/* --- Callout Box --- */
 .callout-box {
-    /* Box Styling */
-    background-color: #191510; /* Slightly lighter than the page background */
-    border-left: 4px solid #ff6b6b; /* The Red/Coral Accent Bar */
-    border-radius: 4px; /* Slight rounding on corners */
-
-    border-top: 1px solid #4D472E;;
-    border-bottom: 1px solid #4D472E;;
-    border-right: 1px solid #4D472E;;
-    
-    /* Spacing */
-    padding: 20px 20px;
-    margin: 40px 0;
-    
-    /* Typography settings */
-    font-family: "Inter Display", Inter, sans-serif;
-    text-align: left;
+    background-color: var(--color-bg-surface); 
+    border: var(--border-width-1) solid var(--color-border-solid);
+    border-left: var(--border-width-4) solid var(--color-accent); 
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-20);
+    margin: var(--spacing-40) 0;
 }
 
 .callout-title {
-    font-size: clamp(16px, 4vw, 18px);;
-    font-weight: 400;
+    font-size: clamp(var(--font-size-16), 4vw, var(--font-size-18));
+    font-weight: var(--font-weight-regular);
     font-style: italic;
-    color: #ffffff;
-    /* margin-bottom: 12px; */
-}
-
-/* .callout-text {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #cccccc;
+    color: var(--color-white);
     margin: 0;
-} */
-
-/* Mobile Tweak */
-@media (max-width: 768px) {
-    .media-container {
-        padding: 40px 20px; /* Less padding on small screens */
-    }
 }
 
-
-
-/* --- LAYOUT WRAPPER (Grid System) --- */
-.layout-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 60px; /* Space between article and sidebar */
-    max-width: 1100px;
-    margin: 0 auto;
-    position: relative;
-}
-
-/* Adjust the existing container to fit in the grid */
-.editorial-container {
-    margin: 0; /* Remove auto margins since wrapper handles centering */
-    max-width: 680px; /* Keep reading width */
-}
-
-/* --- SIDEBAR STYLING --- */
+/* =========================================
+   7. SIDEBAR NAVIGATION (TOC)
+   ========================================= */
 .toc-sidebar {
-    width: 240px; /* Fixed width for sidebar */
-    display: none; /* Hidden by default on mobile */
-
+    width: var(--spacing-240); 
+    display: none; 
     position: sticky;
-    top: 100px;       /* Distance from top of screen */
+    top: var(--spacing-100);       
     height: fit-content; 
-    
-    /* Hidden on mobile/tablet by default */
-    display: none;
+    z-index: var(--z-index-floating);
 }
 
-/* Show sidebar only on large screens */
 @media (min-width: 1100px) {
     .toc-sidebar {
         display: block;
     }
 }
 
-.toc-sticky {
-    position: sticky;
-    top: 100px; /* Stays 100px from top while scrolling */
-}
-
 .toc-header {
-    font-size: 12px;
-    font-weight: 600;
-    color: #666;
-    letter-spacing: 0.02em;
+    font-size: var(--font-size-12);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-grey-dark);
+    letter-spacing: var(--letter-spacing-widest);
     text-transform: uppercase;
-    margin-bottom: 24px;
+    margin-bottom: var(--spacing-24);
 }
 
 .toc-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    border-left: 1px solid rgba(255,255,255,0.1); /* Thin grey guide line */
-}
-
-.toc-list li {
-    margin-bottom: 0;
+    border-left: var(--border-width-1) solid var(--color-border-subtle); 
 }
 
 .toc-link {
     display: block;
-    font-size: 14px;
-    color: #888;
-    text-decoration: none;
-    padding: 8px 0 8px 24px; /* Indent text */
-    line-height: 1.4;
-    letter-spacing: 0.02em;
-    transition: all 0.2s ease;
-    border-left: 2px solid transparent; /* Invisible border for transition */
-    margin-left: -1px; /* Aligns border with the guide line */
+    font-size: var(--font-size-14);
+    color: var(--color-text-grey-dark);
+    padding: var(--spacing-8) 0 var(--spacing-8) var(--spacing-24); 
+    line-height: var(--line-height-snug);
+    transition: all var(--transition-fast);
+    
+    border-left: var(--border-width-2) solid transparent; 
+    margin-left: calc(var(--border-width-1) * -1); 
 }
 
 .toc-link:hover {
-    color: #ccc;
+    color: var(--color-text-grey-light);
 }
 
-/* --- ACTIVE STATE (The Red Line) --- */
 .toc-link.active {
-    color: #fff; /* White text */
-    border-left: 2px solid #ff6b6b; /* The Coral Accent Bar */
-    background: linear-gradient(90deg, rgba(255, 107, 107, 0.05) 0%, transparent 100%); /* Optional faint glow */
+    color: var(--color-white); 
+    border-left-color: var(--color-accent); 
+    background: linear-gradient(90deg, var(--color-accent-alpha-05) 0%, transparent 100%); 
+}
+
+/* =========================================
+   8. MOBILE RESPONSIVENESS
+   ========================================= */
+
+@media (max-width: 1024px) {
+    #hero {
+        padding-top: var(--spacing-80);
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: var(--spacing-16) var(--spacing-20); 
+        background-color: var(--color-nav-glass-mobile); 
+    }
+    #hero {
+        min-height: auto;
+        height: auto;
+        padding-top: var(--spacing-140); 
+        padding-left: var(--spacing-20); 
+        padding-right: var(--spacing-20);
+        padding-bottom: var(--spacing-60);
+        align-items: center; 
+        text-align: left;  
+    }
+    .hero-title {
+        font-size: var(--font-size-42); 
+        margin-bottom: var(--spacing-16);
+    }
+    .hero-native {
+        font-size: var(--font-size-18);
+    }
+    #quick-links {
+        gap: var(--spacing-20); 
+    }
+    .hero-footer {
+        margin-top: var(--spacing-40); 
+        align-items: flex-start;
+    }
+    #work {
+        padding: 0 var(--spacing-20) var(--spacing-80); 
+    }
+    .section-label, 
+    .work-grid {
+        max-width: 100%; 
+    }
+    .work-info h3 {
+        font-size: var(--font-size-20); 
+    }
+    .work-info p {
+        font-size: var(--font-size-14);
+        color: var(--color-text-grey-mid); 
+    }
+    .work-item {
+        padding: var(--spacing-24) 0; 
+        align-items: flex-start; 
+        gap: var(--spacing-16);
+    }
+    .work-arrow {
+        min-width: var(--spacing-24); 
+    }
+    .layout-wrapper {
+        padding: 0;
+    }
+    .editorial-container {
+        padding: var(--spacing-120) var(--spacing-20) var(--spacing-80);
+    }
+    .editorial-title {
+        margin-bottom: var(--spacing-16);
+    }
+    .media-container {
+        padding: var(--spacing-20);
+        margin: var(--spacing-24) 0;
+    }
+    .flow-container {
+        padding: var(--spacing-24) var(--spacing-20);
+    }
+    .flow-node {
+        font-size: var(--font-size-14);
+        padding: var(--spacing-10) var(--spacing-16);
+    }
+    .flow-row {
+        flex-direction: column;
+        gap: var(--spacing-8);
+    }
+    .text-container {
+        grid-template-columns: 1fr; 
+        gap: var(--spacing-16);
+    }
+    .text-card {
+        padding: var(--spacing-24);
+    }
 }
