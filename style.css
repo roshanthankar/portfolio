@@ -2,33 +2,35 @@
    0. DESIGN TOKENS (The Single Source of Truth)
    ========================================= */
 
-/* --- DARK MODE (DEFAULT) --- */
+/* --- LIGHT MODE (DEFAULT) --- */
 :root {
-    /* Colors */
-    --color-bg-base: #000000;         
-    --color-bg-surface: #191510;      
-    --color-bg-surface-hover: #2a251e; 
+    /* Base & Surfaces (Warm off-whites) */
+    --color-bg-base: #ffffff;         
+    --color-bg-surface: #f9f8f6;      
+    --color-bg-surface-hover: #f1efeb; 
     
-    --color-nav-glass: rgba(0, 0, 0, 0.6); 
-    --color-nav-glass-mobile: rgba(0, 0, 0, 0.85);
+    --color-nav-glass: rgba(249, 248, 246, 0.85); 
+    --color-nav-glass-mobile: rgba(249, 248, 246, 0.95);
     
-    --color-white: #ffffff;           
-    --color-text-offwhite: #f4f4f4;   
-    --color-text-grey-light: #bbbbbb; 
-    --color-text-grey-mid: #999999;
-    --color-text-grey: #a3a3a3;       
+    /* Typography Scale (Dark Text) */
+    --color-white: #111111;           
+    --color-text-offwhite: #333333;   
+    --color-text-grey-light: #444444; 
+    --color-text-grey-mid: #555555;
+    --color-text-grey: #666666;       
     --color-text-grey-dark: #767676;  
     
-    --color-accent: #ff6b6b;          
-    --color-success: #6bff77;         
+    /* Accessible Brand Accents */
+    --color-accent: #d90429;          
+    --color-success: #2b9348;         
     
     /* Alpha / Transparent Colors */
-    --color-border-subtle: rgba(255, 255, 255, 0.1); 
-    --color-border-solid: #4D472E;    
-    --color-white-alpha-15: rgba(255, 255, 255, 0.15);
-    --color-white-alpha-30: rgba(255, 255, 255, 0.3);
-    --color-white-alpha-50: rgba(255, 255, 255, 0.5);
-    --color-accent-alpha-05: rgba(255, 107, 107, 0.05);
+    --color-border-subtle: rgba(0, 0, 0, 0.08); 
+    --color-border-solid: #d6d3cd;    
+    --color-white-alpha-15: rgba(0, 0, 0, 0.15);
+    --color-white-alpha-30: rgba(0, 0, 0, 0.3);
+    --color-white-alpha-50: rgba(0, 0, 0, 0.5);
+    --color-accent-alpha-05: rgba(217, 4, 41, 0.05);
 
     /* --- Typography Families --- */
     --font-family-base: "Inter Display", Inter, system-ui, sans-serif;
@@ -132,40 +134,33 @@
     --z-index-nav: 999;
 }
 
-/* --- LIGHT MODE (MANUAL TOGGLE) --- */
-:root.light-mode {
-    /* Base & Surfaces (Warm off-whites) */
-    --color-bg-base: #ffffff;         
-    --color-bg-surface: #f9f8f6;    
-    --color-bg-surface-hover: #f1efeb; 
+/* --- DARK MODE (MANUAL TOGGLE) --- */
+:root.dark-mode {
+    /* Colors */
+    --color-bg-base: #000000;         
+    --color-bg-surface: #191510;      
+    --color-bg-surface-hover: #2a251e; 
     
-    --color-nav-glass: rgba(249, 248, 246, 0.85); 
-    --color-nav-glass-mobile: rgba(249, 248, 246, 0.95);
+    --color-nav-glass: rgba(0, 0, 0, 0.6); 
+    --color-nav-glass-mobile: rgba(0, 0, 0, 0.85);
     
-    /* Typography Scale (Inverted for Light Mode) */
-    --color-white: #111111;           /* Replaces white with almost-black */
-    --color-text-offwhite: #333333;   
-    --color-text-grey-light: #444444; 
-    --color-text-grey-mid: #555555;
-    --color-text-grey: #666666;       
-    --color-text-grey-dark: #767676;  /* Lowest contrast allowed for AA */
+    --color-white: #ffffff;           
+    --color-text-offwhite: #f4f4f4;   
+    --color-text-grey-light: #bbbbbb; 
+    --color-text-grey-mid: #999999;
+    --color-text-grey: #a3a3a3;       
+    --color-text-grey-dark: #888888;  
     
-    /* Accessible Brand Accents */
-    --color-accent: #d90429;          /* Deepened Crimson/Coral for 4.5:1 contrast */
-    --color-success: #0a861a;         /* Deepened Green for readability */
+    --color-accent: #ff6b6b;          
+    --color-success: #6bff77;         
     
     /* Alpha / Transparent Colors */
-    --color-border-subtle: rgba(0, 0, 0, 0.08); 
-    --color-border-solid: #d6d3cd;    /* A warm light-grey border */
-    --color-white-alpha-15: rgba(0, 0, 0, 0.15);
-    --color-white-alpha-30: rgba(0, 0, 0, 0.3);
-    --color-white-alpha-50: rgba(0, 0, 0, 0.5);
-    --color-accent-alpha-05: rgba(217, 4, 41, 0.05);
-}
-
-/* FIX: Invert the white logo to black when Light Mode is active */
-:root.light-mode .logo {
-    filter: invert(1);
+    --color-border-subtle: rgba(255, 255, 255, 0.1); 
+    --color-border-solid: #4D472E;    
+    --color-white-alpha-15: rgba(255, 255, 255, 0.15);
+    --color-white-alpha-30: rgba(255, 255, 255, 0.3);
+    --color-white-alpha-50: rgba(255, 255, 255, 0.5);
+    --color-accent-alpha-05: rgba(255, 107, 107, 0.05);
 }
 
 /* =========================================
@@ -250,6 +245,11 @@ nav {
     width: auto; 
     height: clamp(var(--spacing-12), 2vw, var(--spacing-16));
     opacity: var(--opacity-high); 
+    filter: invert(1); /* Inverts the white SVG to black for default light mode */
+}
+
+:root.dark-mode .logo {
+    filter: invert(0); /* Reverts back to white in dark mode */
 }
 
 #quick-links {

@@ -49,37 +49,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /* =========================================
-       2. LIGHT MODE LOGIC
+/* =========================================
+       2. LIGHT/DARK MODE LOGIC (SIMPLE TOGGLE)
        ========================================= */
        
-    // 1. APPLY THEME ON LOAD GLOBALLY (Runs on every page instantly)
+    // 1. APPLY THEME ON LOAD GLOBALLY (Light is default, we only act if Dark was saved)
     const currentTheme = localStorage.getItem('portfolio-theme');
-    if (currentTheme === 'light') {
-        document.documentElement.classList.add('light-mode');
+    if (currentTheme === 'dark') {
+        document.documentElement.classList.add('dark-mode');
     }
 
-    // 2. SETUP THE BUTTON (If it exists on this specific page)
+    // 2. SETUP THE BUTTON
     const themeToggleBtn = document.getElementById('theme-toggle');
 
     if (themeToggleBtn) {
         const themeIcon = themeToggleBtn.querySelector('ion-icon');
 
-        // Sync the icon on load
-        if (currentTheme === 'light' && themeIcon) {
-            themeIcon.setAttribute('name', 'moon');
+        // Sync the icon on load (Default is moon, change to sun if dark is active)
+        if (currentTheme === 'dark' && themeIcon) {
+            themeIcon.setAttribute('name', 'sunny');
         }
 
         // Listen for the toggle click
         themeToggleBtn.addEventListener('click', () => {
-            document.documentElement.classList.toggle('light-mode');
+            document.documentElement.classList.toggle('dark-mode');
 
-            if (document.documentElement.classList.contains('light-mode')) {
-                if (themeIcon) themeIcon.setAttribute('name', 'moon');
-                localStorage.setItem('portfolio-theme', 'light');
-            } else {
+            if (document.documentElement.classList.contains('dark-mode')) {
                 if (themeIcon) themeIcon.setAttribute('name', 'sunny');
                 localStorage.setItem('portfolio-theme', 'dark');
+            } else {
+                if (themeIcon) themeIcon.setAttribute('name', 'moon');
+                localStorage.setItem('portfolio-theme', 'light');
             }
         });
     }
