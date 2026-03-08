@@ -274,22 +274,31 @@ nav a:hover {
 }
 
 #theme-toggle {
-    background: none;
-    border: none;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     color: var(--color-white);
     font-size: var(--font-size-20);
     cursor: pointer;
     padding: 0;
-    margin-left: var(--spacing-8); /* Adds a little breathing room from the Work link */
+    margin-left: var(--spacing-8); 
     opacity: var(--opacity-high);
     transition: all var(--transition-fast);
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 #theme-toggle:hover {
     opacity: var(--opacity-full);
     transform: translateY(calc(var(--spacing-2) * -1));
+}
+
+#theme-toggle ion-icon {
+    pointer-events: none; 
 }
 
 /* =========================================
