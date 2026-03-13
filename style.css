@@ -171,6 +171,7 @@
     src: url("/fonts/Inter-Display.woff2") format("woff2");
     font-weight: 100 900;
     font-display: swap;
+    /* font-feature-settings: "liga" 1, "cv01" 1, "cv08" 1, "cv09" 1, "cv11" 1, "cv13" 0, "zero" 0; */
 }
 
 * {
@@ -185,9 +186,14 @@ html, body {
     background-color: var(--color-bg-base);
     color: var(--color-white);
     font-family: var(--font-family-base);
-    
-    font-variant-ligatures: common-ligatures;
-    font-feature-settings: "liga" 1, "cv01" 1, "cv08" 1, "cv09" 1, "cv11" 1, "cv13" 1;
+
+    font-variant-ligatures: common-ligatures contextual;
+    font-variant-numeric: normal;
+
+    /* THE FIX: Explicitly turning on Kerning (kern) and Contextual Alternates (calt) 
+       so Safari doesn't break the letters, while turning OFF the slashed zero */
+    -webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "cv01" 1, "cv08" 1, "cv09" 1, "cv11" 1, "cv13" 0, "zero" 0;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "cv01" 1, "cv08" 1, "cv09" 1, "cv11" 1, "cv13" 0, "zero" 0;
 
     scrollbar-width: none; 
     -ms-overflow-style: none; 
