@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Bot | Roshan Thankar</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="style.css">
 
     <link rel="icon" type="image/png" href="assets/favicon/favicon.png?v=2">
@@ -36,6 +38,16 @@
 
         <article class="editorial-body">
 
+            <!-- <a href="#" class="prompt-card" target="_blank" rel="noopener noreferrer">
+                <div class="prompt-icon">
+                    <ion-icon name="logo-github"></ion-icon>
+                </div>
+                <div class="prompt-text">
+                    <h3>View the Source Code</h3>
+                    <p>Explore the complete Python backend and the 5-step algorithmic trading logic</p>
+                </div>
+            </a> -->
+
             <div id="overview" class="editorial-label">
                 <span>Overview</span>
             </div>
@@ -43,6 +55,30 @@
             <h2 class="editorial-section-title">What is Stock Bot?</h2>
 
             <p>Stock Bot is a fully automated daily market scanner. Every morning at 8:00 AM, it scans 229 Indian stocks, evaluates them against a strict set of investing rules, and sends me a simple, highly scannable Telegram message with the best trading opportunities for the day.</p>
+
+            <br>
+
+            <h2 class="editorial-section-title">Project Details</h2>
+
+            <table style="width: 100%; text-align: left;">
+                <tr>
+                    <td>
+                        <p>End-to-End Design Engineer</p>
+                    </td>
+                    <td>
+                        <p>Python, Fyers API, GitHub Actions, Telegram UI</p>
+                    </td>
+                </tr>
+           
+                <tr>
+                    <td>
+                        <p>2 Weeks (Weekend Project)</p>
+                    </td>
+                    <td>
+                        <p>Conversational Interface / Plain Text</p>
+                    </td>
+                </tr>
+            </table>
 
             <br>
 
@@ -118,6 +154,8 @@
 
             <p>Patience: It is better for the bot to recommend zero stocks on a bad market day than to force a risky trade.</p>
 
+            <p>Graceful Failure: Financial APIs break. If the NSE earnings calendar blocks the bot, the system is designed to skip that specific check, flag a warning in the Telegram message, and still deliver the rest of the daily report seamlessly rather than crashing the whole script.</p>
+
             <br>
 
             <div id="userflow" class="editorial-label">
@@ -125,7 +163,7 @@
             </div>
 
             <h2 class="editorial-section-title">How does the bot actually work every morning?</h2>
-           
+          
             <div class="flow-container">
     
                 <div class="flow-node">8:00 AM IST: A GitHub Actions cron job triggers the master Python pipeline</div>
@@ -142,6 +180,150 @@
             </div>
 
             <br>
+
+            <div id="snippet" class="editorial-label">
+                <span>Snippet - 1</span>
+            </div>
+
+            <h2 class="editorial-section-title">The Automation Engine</h2>
+
+            <div class="media-container">
+                <div class="vscode-window">
+                    <div class="vscode-header">
+                        <div class="mac-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="file-name">daily-run.yml</div>
+                    </div>
+                    <div class="vscode-body">
+                        <pre><code><span class="code-key">name</span><span class="code-punct">:</span> Stock Bot — Daily Run
+            
+            <span class="code-key">on</span><span class="code-punct">:</span>
+              <span class="code-key">schedule</span><span class="code-punct">:</span>
+                <span class="code-punct">-</span> <span class="code-key">cron</span><span class="code-punct">:</span> <span class="code-string">'30 2 * * 1-5'</span>  <span class="code-comment"># 8:00 AM IST = 2:30 AM UTC, weekdays only</span>
+              <span class="code-key">workflow_dispatch</span><span class="code-punct">:</span>          <span class="code-comment"># Manual trigger from GitHub Actions UI</span>
+            
+            <span class="code-key">jobs</span><span class="code-punct">:</span>
+              <span class="code-key">run-bot</span><span class="code-punct">:</span>
+                <span class="code-key">runs-on</span><span class="code-punct">:</span> <span class="code-string">ubuntu-latest</span>
+                <span class="code-key">steps</span><span class="code-punct">:</span>
+                  <span class="code-punct">-</span> <span class="code-key">name</span><span class="code-punct">:</span> Checkout code
+                    <span class="code-key">uses</span><span class="code-punct">:</span> <span class="code-string">actions/checkout@v4</span></code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <p>This is the alarm clock for the bot. It tells the system to wake up exactly at 8:00 AM every weekday, scan the market, and send me the results without me ever having to open my laptop.</p>
+
+            <br>
+
+            <div id="snippet" class="editorial-label">
+                <span>Snippet - 2</span>
+            </div>
+
+            <h2 class="editorial-section-title">The Core Logic</h2>
+
+            <div class="media-container">
+                <div class="vscode-window">
+                    <div class="vscode-header">
+                        <div class="mac-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="file-name">analyzer.py</div>
+                    </div>
+                    <div class="vscode-body">
+                        <pre><code><span class="code-key">def</span> <span class="code-func">passes_hard_filters</span>(daily_df<span class="code-punct">:</span> <span class="code-type">pd.DataFrame</span>, weekly_df<span class="code-punct">:</span> <span class="code-type">pd.DataFrame</span>) <span class="code-punct">-&gt;</span> <span class="code-type">tuple</span><span class="code-punct">:</span>
+                <span class="code-string">"""Returns (passes: bool, reason: str)"""</span>
+            
+                <span class="code-key">if</span> daily_df <span class="code-key">is</span> <span class="code-key">None</span> <span class="code-key">or</span> len(daily_df) <span class="code-punct">&lt;</span> MIN_CANDLES_DAILY<span class="code-punct">:</span>
+                    <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Insufficient data"</span>
+            
+                close   <span class="code-punct">=</span> daily_df[<span class="code-string">"close"</span>]
+                current <span class="code-punct">=</span> close.iloc[<span class="code-punct">-</span><span class="code-num">1</span>]
+            
+                <span class="code-comment"># Filter: Weekly trend not in clear downtrend</span>
+                <span class="code-key">if</span> weekly_df <span class="code-key">is</span> <span class="code-key">not</span> <span class="code-key">None</span> <span class="code-key">and</span> len(weekly_df) <span class="code-punct">&gt;=</span> MIN_CANDLES_WEEKLY<span class="code-punct">:</span>
+                    wc      <span class="code-punct">=</span> weekly_df[<span class="code-string">"close"</span>]
+                    w_sma10 <span class="code-punct">=</span> wc.rolling(<span class="code-num">10</span>).mean().iloc[<span class="code-punct">-</span><span class="code-num">1</span>]
+                    w_sma20 <span class="code-punct">=</span> wc.rolling(min(<span class="code-num">20</span><span class="code-punct">,</span> len(wc))).mean().iloc[<span class="code-punct">-</span><span class="code-num">1</span>]
+                    <span class="code-key">if</span> (wc.iloc[<span class="code-punct">-</span><span class="code-num">1</span>] <span class="code-punct">&lt;</span> w_sma10 <span class="code-key">and</span>
+                        wc.iloc[<span class="code-punct">-</span><span class="code-num">1</span>] <span class="code-punct">&lt;</span> w_sma20 <span class="code-key">and</span>
+                        wc.iloc[<span class="code-punct">-</span><span class="code-num">1</span>] <span class="code-punct">&lt;</span> wc.iloc[<span class="code-punct">-</span><span class="code-num">4</span>])<span class="code-punct">:</span>
+                        <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Weekly downtrend"</span>
+            
+                <span class="code-comment"># Filter: Not more than 10% below 200 DMA</span>
+                <span class="code-key">if</span> len(close) <span class="code-punct">&gt;=</span> <span class="code-num">200</span><span class="code-punct">:</span>
+                    dma200 <span class="code-punct">=</span> close.rolling(<span class="code-num">200</span>).mean().iloc[<span class="code-punct">-</span><span class="code-num">1</span>]
+                    <span class="code-key">if</span> current <span class="code-punct">&lt;</span> dma200 <span class="code-punct">*</span> <span class="code-num">0.90</span><span class="code-punct">:</span>
+                        <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Too far below 200 DMA"</span>
+            
+                <span class="code-comment"># Filter: Not in freefall (>25% drop in a month)</span>
+                month_ago <span class="code-punct">=</span> close.iloc[<span class="code-punct">-</span><span class="code-num">22</span>] <span class="code-key">if</span> len(close) <span class="code-punct">&gt;=</span> <span class="code-num">22</span> <span class="code-key">else</span> close.iloc[<span class="code-num">0</span>]
+                <span class="code-key">if</span> (current <span class="code-punct">-</span> month_ago) <span class="code-punct">/</span> month_ago <span class="code-punct">*</span> <span class="code-num">100</span> <span class="code-punct">&lt;</span> <span class="code-punct">-</span><span class="code-num">25</span><span class="code-punct">:</span>
+                    <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Falling more than 25% in a month"</span>
+            
+                <span class="code-comment"># Filter: Not a penny stock</span>
+                <span class="code-key">if</span> current <span class="code-punct">&lt;</span> <span class="code-num">20</span><span class="code-punct">:</span>
+                    <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Price below ₹20"</span>
+            
+                <span class="code-key">return</span> <span class="code-key">True</span><span class="code-punct">,</span> <span class="code-string">"OK"</span></code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <p>This is the brain of the system. It acts like a strict bouncer, immediately throwing out weak or risky stocks and only keeping the ones that match my exact investing rules.</p>
+
+            <br>
+
+            <div id="snippet" class="editorial-label">
+                <span>Snippet - 3</span>
+            </div>
+
+            <h2 class="editorial-section-title">The Conversational UI</h2>
+
+            <div class="media-container">
+                <div class="vscode-window">
+                    <div class="vscode-header">
+                        <div class="mac-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="file-name">bot_alerts.py</div>
+                    </div>
+                    <div class="vscode-body">
+                        <pre><code>    <span class="code-comment"># Confidence bar</span>
+                filled   <span class="code-punct">=</span> <span class="code-func">int</span>(confidence <span class="code-punct">/</span> <span class="code-num">10</span>)
+                conf_bar <span class="code-punct">=</span> <span class="code-string">"█"</span> <span class="code-punct">*</span> filled <span class="code-punct">+</span> <span class="code-string">"░"</span> <span class="code-punct">*</span> (<span class="code-num">10</span> <span class="code-punct">-</span> filled)
+            
+                <span class="code-comment"># Nifty direction icon</span>
+                nifty_icon <span class="code-punct">=</span> <span class="code-string">"🟢"</span> <span class="code-key">if</span> nifty_chg <span class="code-punct">&gt;</span> <span class="code-num">0</span> <span class="code-key">else</span> <span class="code-string">"🔴"</span>
+                gift_icon  <span class="code-punct">=</span> <span class="code-string">"🟢"</span> <span class="code-key">if</span> gift_gap <span class="code-punct">&gt;</span> <span class="code-num">0</span> <span class="code-key">else</span> <span class="code-string">"🔴"</span>
+            
+                <span class="code-comment"># Build message with emojis and confidence bar</span>
+                msg <span class="code-punct">=</span> (
+                    <span class="code-key">f</span><span class="code-string">"*#</span><span class="code-punct">{</span>rank<span class="code-punct">}</span> <span class="code-punct">{</span>symbol<span class="code-punct">}</span><span class="code-string">* |  </span><span class="code-punct">{</span>sector<span class="code-punct">}</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"</span><span class="code-punct">{</span>emoji<span class="code-punct">}</span><span class="code-string"> _</span><span class="code-punct">{</span>type_desc<span class="code-punct">}</span><span class="code-string">_</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"━━━━━━━━━━━━━━━━</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"📊 Signal: *</span><span class="code-punct">{</span>signal<span class="code-punct">}</span><span class="code-string">*</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"🎯 Confidence: </span><span class="code-punct">{</span>conf_bar<span class="code-punct">}</span> <span class="code-punct">{</span>confidence<span class="code-punct">}</span><span class="code-string">%</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"💰 *Buy at:* ₹</span><span class="code-punct">{</span>price<span class="code-punct">}</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"🎯 *Target:* ₹</span><span class="code-punct">{</span>target<span class="code-punct">}</span><span class="code-string">  _(+</span><span class="code-punct">{</span>upside<span class="code-punct">}</span><span class="code-string">%)_</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"🛑 *Stop Loss:* ₹</span><span class="code-punct">{</span>stop_loss<span class="code-punct">}</span><span class="code-string">  _(-</span><span class="code-punct">{</span>downside<span class="code-punct">}</span><span class="code-string">%)_</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"⚖️ *Risk/Reward:* </span><span class="code-punct">{</span>rr<span class="code-punct">}</span><span class="code-string">x</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"💸 *Max loss per 10 shares:* ₹</span><span class="code-punct">{</span>risk_10_shares<span class="code-punct">}</span><span class="code-key">\n</span><span class="code-string">"</span>
+                )</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <p>This is where the raw data turns into design. It takes all the complicated numbers and formats them into a clean, scannable text message using emojis and visual progress bars so I can read it in seconds.</p>
 
             <!-- <div id="iteration1" class="editorial-label">
                 <span>Iteration 1</span>
@@ -206,9 +388,11 @@
 
                 <div class="text-card">
                     
-                    <p>Stock Bot has completely changed my morning routine. It runs flawlessly every day, handling API issues gracefully.</p>
+                    <p>Previously, manually checking the charts and fundamentals for just 20 stocks took me over an hour.</p>
 
-                    <p> By automatically enforcing stop-losses and adjusting to the market's mood, it has taken all the emotional volatility out of my investing and replaced it with a calm, automated system.</p>
+                    <p>Now, the bot scans 229 stocks in under 45 seconds.</p>
+
+                    <p>It saves me roughly 5 hours of manual research every week with 100% automated uptime, completely removing the emotional stress from my morning investing.</p>
 
                 </div>
 
@@ -256,6 +440,7 @@
                 <li><a href="#business&uservalue" class="toc-link">Business & User Value</a></li>
                 <li><a href="#keydesignprinciples" class="toc-link active">Key Design Principles</a></li>
                 <li><a href="#userflow" class="toc-link">Userflow</a></li>
+                <li><a href="#snippet" class="toc-link">Snippet</a></li>
                 <!-- <li><a href="#iteration1" class="toc-link">Iteration 1</a></li>
                 <li><a href="#iteration2" class="toc-link">Iteration 2</a></li> -->
                 <li><a href="#finalsolution" class="toc-link">Final Solution</a></li>

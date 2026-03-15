@@ -776,6 +776,157 @@ nav a:hover {
     margin: 0;
 }
 
+/* --- Prompt Action Card Component --- */
+.prompt-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-20);
+    background-color: var(--color-bg-surface);
+    border: var(--border-width-1) solid var(--color-border-solid);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-20) var(--spacing-24);
+    margin: var(--spacing-32) 0;
+    text-decoration: none;
+    transition: all var(--transition-base);
+    width: 100%;
+    cursor: pointer;
+}
+
+.prompt-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prompt-icon ion-icon {
+    font-size: var(--spacing-24);
+    color: var(--color-text-offwhite);
+    transition: color var(--transition-base);
+}
+
+.prompt-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.prompt-text h3 {
+    color: var(--color-text-offwhite);
+    font-size: var(--font-size-18);
+    font-weight: var(--font-weight-medium);
+    margin: 0;
+    transition: color var(--transition-base);
+}
+
+.prompt-text p {
+    color: var(--color-text-grey-light);
+    font-size: var(--font-size-14);
+    margin: 0;
+    line-height: var(--line-height-base);
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Turns the icon and title to your brand accent color on hover */
+.prompt-card:hover .prompt-icon ion-icon,
+.prompt-card:hover .prompt-text h3 {
+    color: var(--color-accent); 
+}
+
+/* --- VS Code Window Component --- */
+.vscode-window {
+    width: 100%;
+    max-width: 600px;
+    background-color: #1e1e1e; /* Official VS Code Dark Background */
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    text-align: left;
+}
+
+.vscode-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #252526; /* Official VS Code Tab Bar */
+    padding: var(--spacing-10) var(--spacing-16);
+    position: relative;
+    border-bottom: 1px solid #333333;
+}
+
+.mac-dots {
+    position: absolute;
+    left: var(--spacing-16);
+    display: flex;
+    gap: 6px;
+}
+
+.mac-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.red { background-color: #ff5f56; }
+.dot.yellow { background-color: #ffbd2e; }
+.dot.green { background-color: #27c93f; }
+
+.file-name {
+    color: #969696;
+    font-size: var(--font-size-12);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+.vscode-body {
+    padding: var(--spacing-20) var(--spacing-24);
+    overflow-x: auto;
+}
+
+.vscode-body pre {
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: var(--font-size-14);
+    line-height: var(--line-height-relaxed);
+    color: #d4d4d4; /* Default VS Code text color */
+}
+
+/* --- VS Code Custom Scrollbar --- */
+/* 1. Re-enable for Firefox */
+.vscode-body {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* 2. Re-enable and style for Chrome/Safari/Edge */
+.vscode-body::-webkit-scrollbar {
+    display: block; /* Overrides your global display: none */
+    height: 8px;    /* Height of the horizontal scrollbar */
+}
+
+.vscode-body::-webkit-scrollbar-track {
+    background: transparent; 
+    margin: 0 var(--spacing-4); /* Keeps it from hitting the exact edge */
+}
+
+.vscode-body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15); 
+    border-radius: var(--border-radius-sm);
+}
+
+.vscode-body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.3); 
+}
+
+/* VS Code Syntax Highlighting Colors */
+.code-key { color: #569cd6; }    /* Blue for properties/keywords */
+.code-string { color: #ce9178; } /* Orange for strings */
+.code-comment { color: #6a9955; }/* Green for comments */
+.code-punct { color: #cccccc; }  /* Light grey for punctuation */
+.code-num { color: #b5cea8; }    /* Light green for numbers */
+.code-func { color: #dcdcaa; }   /* Pale yellow for function names */
+.code-type { color: #4ec9b0; }   /* Teal for classes and types */
+
 /* =========================================
    7. SIDEBAR NAVIGATION (TOC)
    ========================================= */
