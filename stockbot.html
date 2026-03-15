@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Bot | Roshan Thankar</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/png" href="assets/favicon/favicon.png?v=2">
+</head>
+<body>
+
+    <div class="layout-wrapper">
+
+        <main class="editorial-container">
+
+        <div class="nav-container">
+            <a href="index.html" class="editorial-back">
+                &larr; Home
+            </a>
+        </div>
+
+        <header class="editorial-header">
+            <div class="editorial-meta">
+                Mar 2026 &nbsp;&middot;&nbsp; Dhan App &nbsp;&middot;&nbsp; <span class="highlight">Live</span>
+            </div>
+            
+            <h1 class="editorial-title">Stock Bot</h1>
+          
+            <p class="editorial-excerpt">
+                A Python bot that scans the Indian stock market and texts me the best daily setups on Telegram
+            </p>
+        </header>
+
+        <hr class="editorial-divider">
+
+        <article class="editorial-body">
+
+            <div id="overview" class="editorial-label">
+                <span>Overview</span>
+            </div>
+
+            <h2 class="editorial-section-title">What is Stock Bot?</h2>
+
+            <p>Stock Bot is a fully automated daily market scanner. Every morning at 8:00 AM, it scans 229 Indian stocks, evaluates them against a strict set of investing rules, and sends me a simple, highly scannable Telegram message with the best trading opportunities for the day.</p>
+
+            <br>
+
+            <div id="context" class="editorial-label">
+                <span>Context</span>
+            </div>
+
+            <h2 class="editorial-section-title">Why did I need this in my daily life?</h2>
+            
+            <p>I built Stock Bot as a personal project to solve a daily frustration: the overwhelming amount of data in the Indian stock market. I needed a way to strip away the noise, remove the emotional stress of picking stocks, and find clear, high-probability setups before the market opened every morning.</p>
+
+            <br>
+
+            <div id="problem" class="editorial-label">
+                <span>Problem</span>
+            </div>
+
+            <h2 class="editorial-section-title">What was the exact problem I was facing?</h2>
+            
+            <p>The Indian markets open at 9:15 AM. Trying to manually check the charts, moving averages, PE ratios, and news sentiment for hundreds of stocks before the opening bell is humanly impossible.</p>
+
+            <p>I needed the research done for me while I was still waking up.</p>
+
+            <br>
+
+            <div id="rootcause" class="editorial-label">
+                <span>Root cause</span>
+            </div>
+
+            <h2 class="editorial-section-title">What makes picking stocks so overwhelming?</h2>
+            
+            <p>Most financial platforms give you a firehose of raw data but very few actionable insights. On top of that, human emotion is the enemy of good investing. Without a strict, automated system, it’s too easy to make bad calls out of FOMO.</p>
+
+            <br>
+
+            <div id="insights" class="editorial-label">
+                <span>Insights</span>
+            </div>
+
+            <h2 class="editorial-section-title">What did I discover?</h2>
+            
+            <p>I realized that smart investing is basically just following an algorithm. If I could translate the rules of a disciplined trader into Python code, I could completely offload the mental burden.</p>
+
+            <p>I also realized the output had to be incredibly constrained giving myself another chart heavy dashboard would just recreate the problem of data fatigue.</p>
+            
+            <br>
+
+            <div id="business&uservalue" class="editorial-label">
+                <span>Business & User Value</span>
+            </div>
+
+            <h2 class="editorial-section-title">What are the actual benefits of this system?</h2>
+            
+            <p>Zero-Cost: It runs entirely on free APIs (Fyers, Screener.in, Google News) and GitHub Actions. Total cost: ₹0/month.</p>
+            
+            <p>Time Saved: Automates hours of manual charting and fundamental research every single day.</p>
+
+            <p>Capital Protection: The bot algorithmically enforces a 5% maximum stop loss, protecting me from emotional trading mistakes.</p>
+
+            <br>
+
+            <div id="keydesignprinciples" class="editorial-label">
+                <span>Key design principles</span>
+            </div>
+
+            <h2 class="editorial-section-title">What rules did I follow while building this?</h2>
+            
+            <p>Zero-Touch: The system must run completely on its own without me touching a keyboard.</p>
+
+            <p>Scannability: The final message must be readable in under 30 seconds on a mobile screen.</p>
+
+            <p>Transparency: The bot needs to show its confidence level so I trust its picks.</p>
+
+            <p>Patience: It is better for the bot to recommend zero stocks on a bad market day than to force a risky trade.</p>
+
+            <br>
+
+            <div id="userflow" class="editorial-label">
+                <span>Userflow</span>
+            </div>
+
+            <h2 class="editorial-section-title">How does the bot actually work every morning?</h2>
+           
+            <div class="flow-container">
+    
+                <div class="flow-node">8:00 AM IST: A GitHub Actions cron job triggers the master Python pipeline</div>
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-node">Data Ingestion: The bot auto-logins via TOTP, pulling live market context and scraping 229 stocks</div>
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-node">Synthesis: The 5-step logic (Hard Filters, Story ID, Scoring, Risk, Timing) processes the data</div>
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-node">8:02 AM IST: I open Telegram, scan the formatted text message, and place my bracket orders on my broker app before 9:15 AM</div>
+                
+            </div>
+
+            <br>
+
+            <!-- <div id="iteration1" class="editorial-label">
+                <span>Iteration 1</span>
+            </div>
+
+            <h2 class="editorial-section-title">Oversimplified Approach</h2>
+
+            <p>The first version was just a basic Python script running in my terminal. It worked, but it crashed constantly because the Fyers API rate-limited me for pulling too much data at once. The output was just a wall of raw code that was impossible to read quickly.</p>
+
+            <br>
+
+            <div id="iteration2" class="editorial-label">
+                <span>Iteration 2</span>
+            </div>
+
+            <h2 class="editorial-section-title">All-In-One Approach</h2>
+
+            <p>I added error handling so it wouldn't crash, and connected it to Telegram. But the message was still just a massive text dump of numbers. It lacked any visual hierarchy, making it really hard to quickly tell the difference between a buy price, a stop loss, and the reason why the bot picked that stock.</p> -->
+
+            <br>
+
+            <div id="finalsolution" class="editorial-label">
+                <span>Final Solution</span>
+            </div>
+
+            <h2 class="editorial-section-title">What does the final interface look like?</h2>
+
+            <div class="media-container">
+                <img src="assets/StockBot/Stockbot.png" alt="Iteration 1" loading="lazy">
+            </div>
+
+            <p>I redesigned the Telegram message into a clean conversational UI. I used a strict typographic layout. The message starts with the overall market mood (like "Positive Day 🟢") so I know what to expect. For the actual stock picks, I used emojis to make it easy to scan.</p>
+
+            <p>Instead of attaching image files of stock charts, I used simple text blocks (████████░░ 78%) to visually show how confident the AI is. I also strictly separated the numbers (what to buy) from the reasoning (why to buy).</p>
+
+            <br>
+
+            <div id="designdecision" class="editorial-label">
+                <span>Design decision</span>
+            </div>
+
+            <h2 class="editorial-section-title">Why did I use Telegram instead of a web dashboard?</h2>
+
+            <p>I deliberately choose plain text on Telegram instead of building a complex web dashboard. Designing for plain text forces you to be ruthless with your constraints.</p>
+
+            <p>It strips away all the vanity metrics and focuses purely on the user's core need:</p>
+
+            <div class="callout-box">
+                <h3 class="callout-title">What do I buy, at what price, and why?</h3>
+                <!-- <p class="callout-text">  </p> -->
+            </div>
+
+            <br>
+
+            <div id="impact" class="editorial-label">
+                <span>Impact</span>
+            </div>
+
+            <h2 class="editorial-section-title">How has this changed my morning routine?</h2>
+
+            <div class="text-container">
+
+                <div class="text-card">
+                    
+                    <p>Stock Bot has completely changed my morning routine. It runs flawlessly every day, handling API issues gracefully.</p>
+
+                    <p> By automatically enforcing stop-losses and adjusting to the market's mood, it has taken all the emotional volatility out of my investing and replaced it with a calm, automated system.</p>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div id="learnings" class="editorial-label">
+                <span>Learnings</span>
+            </div>
+
+            <h2 class="editorial-section-title">What did I learn, and what am I building next?</h2>
+
+            <p>Building this taught me how to bridge the gap between heavy Python data pipelines and simple front-end experiences. For the next step, I want to take this logic out of Telegram and build it into the Apple ecosystem.</p>
+
+            <p>I am currently exploring SwiftUI to turn this into a highly polished, native iOS widget for my home screen.</p>
+
+        </article>
+
+        <br>
+
+        <hr class="editorial-divider">
+
+        <div class="nav-container">
+            <a href="index.html" class="editorial-back">
+                &larr; Home
+            </a>
+
+            <a href="fnocalendar.html" class="editorial-back">
+                Next &rarr;
+            </a>
+        </div>
+
+    </main>
+
+    <aside class="toc-sidebar">
+        <div class="toc-sticky">
+            <h4 class="toc-header">ON THIS PAGE</h4>
+            <ul class="toc-list">
+                <li><a href="#overview" class="toc-link">Overview</a></li>
+                <li><a href="#context" class="toc-link">Context</a></li>
+                <li><a href="#problem" class="toc-link">Problem</a></li>
+                <li><a href="#rootcause" class="toc-link">Root Cause</a></li>
+                <li><a href="#insights" class="toc-link">Insights</a></li>
+                <li><a href="#business&uservalue" class="toc-link">Business & User Value</a></li>
+                <li><a href="#keydesignprinciples" class="toc-link active">Key Design Principles</a></li>
+                <li><a href="#userflow" class="toc-link">Userflow</a></li>
+                <!-- <li><a href="#iteration1" class="toc-link">Iteration 1</a></li>
+                <li><a href="#iteration2" class="toc-link">Iteration 2</a></li> -->
+                <li><a href="#finalsolution" class="toc-link">Final Solution</a></li>
+                <li><a href="#designdecision" class="toc-link">Design Decision</a></li>
+                <li><a href="#impact" class="toc-link">Impact</a></li>
+                <li><a href="#learnings" class="toc-link">Learnings</a></li>
+            </ul>
+        </div>
+        </aside>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
