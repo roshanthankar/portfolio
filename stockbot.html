@@ -193,7 +193,7 @@
                             <span class="dot yellow"></span>
                             <span class="dot green"></span>
                         </div>
-                        <div class="file-name">daily-run.yml</div>
+                        <div class="file-name">stock-bot.yml</div>
                     </div>
                     <div class="vscode-body">
                         <pre><code><span class="code-key">name</span><span class="code-punct">:</span> Stock Bot — Daily Run
@@ -234,39 +234,73 @@
                         <div class="file-name">analyzer.py</div>
                     </div>
                     <div class="vscode-body">
-                        <pre><code><span class="code-key">def</span> <span class="code-func">passes_hard_filters</span>(daily_df<span class="code-punct">:</span> <span class="code-type">pd.DataFrame</span>, weekly_df<span class="code-punct">:</span> <span class="code-type">pd.DataFrame</span>) <span class="code-punct">-&gt;</span> <span class="code-type">tuple</span><span class="code-punct">:</span>
+                        <pre><code><span class="code-key">from</span> typing <span class="code-key">import</span> <span class="code-type">Optional</span>
+            
+            <span class="code-comment"># All magic numbers in one place — easy to tune</span>
+            DMA_PERIOD        <span class="code-punct">=</span> <span class="code-num">200</span>
+            DMA_MAX_BELOW_PCT <span class="code-punct">=</span> <span class="code-num">0.90</span>
+            FREEFALL_PERIOD   <span class="code-punct">=</span> <span class="code-num">22</span>
+            FREEFALL_MAX_DROP <span class="code-punct">=</span> <span class="code-num">-25.0</span>
+            MIN_STOCK_PRICE   <span class="code-punct">=</span> <span class="code-num">20</span>
+            WEEKLY_SMA_SHORT  <span class="code-punct">=</span> <span class="code-num">10</span>
+            WEEKLY_SMA_LONG   <span class="code-punct">=</span> <span class="code-num">20</span>
+            
+            
+            <span class="code-key">def</span> <span class="code-func">_has_required_columns</span>(df<span class="code-punct">:</span> <span class="code-type">pd.DataFrame</span><span class="code-punct">,</span> cols<span class="code-punct">:</span> <span class="code-type">list</span>) <span class="code-punct">-&gt;</span> <span class="code-type">bool</span><span class="code-punct">:</span>
+                <span class="code-string">"""Guard against missing columns from API anomalies."""</span>
+                <span class="code-key">return</span> df <span class="code-key">is</span> <span class="code-key">not</span> <span class="code-key">None</span> <span class="code-key">and</span> <span class="code-func">all</span>(c <span class="code-key">in</span> df.columns <span class="code-key">for</span> c <span class="code-key">in</span> cols)
+            
+            
+            <span class="code-key">def</span> <span class="code-func">passes_hard_filters</span>(
+                daily_df<span class="code-punct">:</span> <span class="code-type">pd.DataFrame</span><span class="code-punct">,</span>
+                weekly_df<span class="code-punct">:</span> <span class="code-type">pd.DataFrame</span>
+            ) <span class="code-punct">-&gt;</span> <span class="code-type">tuple</span><span class="code-punct">:</span>
                 <span class="code-string">"""Returns (passes: bool, reason: str)"""</span>
             
-                <span class="code-key">if</span> daily_df <span class="code-key">is</span> <span class="code-key">None</span> <span class="code-key">or</span> len(daily_df) <span class="code-punct">&lt;</span> MIN_CANDLES_DAILY<span class="code-punct">:</span>
+                <span class="code-comment"># Column validation — protects against API returning bad data</span>
+                <span class="code-key">if</span> <span class="code-key">not</span> <span class="code-func">_has_required_columns</span>(daily_df<span class="code-punct">,</span> [<span class="code-string">"close"</span><span class="code-punct">,</span> <span class="code-string">"high"</span><span class="code-punct">,</span> <span class="code-string">"low"</span><span class="code-punct">,</span> <span class="code-string">"volume"</span>])<span class="code-punct">:</span>
+                    <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Missing required columns"</span>
+            
+                <span class="code-key">if</span> <span class="code-func">len</span>(daily_df) <span class="code-punct">&lt;</span> MIN_CANDLES_DAILY<span class="code-punct">:</span>
                     <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Insufficient data"</span>
             
                 close   <span class="code-punct">=</span> daily_df[<span class="code-string">"close"</span>]
-                current <span class="code-punct">=</span> close.iloc[<span class="code-punct">-</span><span class="code-num">1</span>]
+                current <span class="code-punct">=</span> <span class="code-func">float</span>(close.iloc[<span class="code-punct">-</span><span class="code-num">1</span>])
             
                 <span class="code-comment"># Filter: Weekly trend not in clear downtrend</span>
-                <span class="code-key">if</span> weekly_df <span class="code-key">is</span> <span class="code-key">not</span> <span class="code-key">None</span> <span class="code-key">and</span> len(weekly_df) <span class="code-punct">&gt;=</span> MIN_CANDLES_WEEKLY<span class="code-punct">:</span>
+                <span class="code-key">if</span> (<span class="code-func">_has_required_columns</span>(weekly_df<span class="code-punct">,</span> [<span class="code-string">"close"</span>]) <span class="code-key">and</span>
+                        <span class="code-func">len</span>(weekly_df) <span class="code-punct">&gt;=</span> MIN_CANDLES_WEEKLY)<span class="code-punct">:</span>
                     wc      <span class="code-punct">=</span> weekly_df[<span class="code-string">"close"</span>]
-                    w_sma10 <span class="code-punct">=</span> wc.rolling(<span class="code-num">10</span>).mean().iloc[<span class="code-punct">-</span><span class="code-num">1</span>]
-                    w_sma20 <span class="code-punct">=</span> wc.rolling(min(<span class="code-num">20</span><span class="code-punct">,</span> len(wc))).mean().iloc[<span class="code-punct">-</span><span class="code-num">1</span>]
-                    <span class="code-key">if</span> (wc.iloc[<span class="code-punct">-</span><span class="code-num">1</span>] <span class="code-punct">&lt;</span> w_sma10 <span class="code-key">and</span>
-                        wc.iloc[<span class="code-punct">-</span><span class="code-num">1</span>] <span class="code-punct">&lt;</span> w_sma20 <span class="code-key">and</span>
-                        wc.iloc[<span class="code-punct">-</span><span class="code-num">1</span>] <span class="code-punct">&lt;</span> wc.iloc[<span class="code-punct">-</span><span class="code-num">4</span>])<span class="code-punct">:</span>
+                    <span class="code-comment"># Fix: tail().mean() is faster than rolling().mean().iloc[-1]</span>
+                    w_sma10 <span class="code-punct">=</span> <span class="code-func">float</span>(wc.tail(WEEKLY_SMA_SHORT).mean())
+                    w_sma20 <span class="code-punct">=</span> <span class="code-func">float</span>(wc.tail(<span class="code-func">min</span>(WEEKLY_SMA_LONG<span class="code-punct">,</span> <span class="code-func">len</span>(wc))).mean())
+                    <span class="code-key">if</span> (<span class="code-func">float</span>(wc.iloc[<span class="code-punct">-</span><span class="code-num">1</span>]) <span class="code-punct">&lt;</span> w_sma10 <span class="code-key">and</span>
+                        <span class="code-func">float</span>(wc.iloc[<span class="code-punct">-</span><span class="code-num">1</span>]) <span class="code-punct">&lt;</span> w_sma20 <span class="code-key">and</span>
+                        <span class="code-func">float</span>(wc.iloc[<span class="code-punct">-</span><span class="code-num">1</span>]) <span class="code-punct">&lt;</span> <span class="code-func">float</span>(wc.iloc[<span class="code-punct">-</span><span class="code-num">4</span>]))<span class="code-punct">:</span>
                         <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Weekly downtrend"</span>
             
                 <span class="code-comment"># Filter: Not more than 10% below 200 DMA</span>
-                <span class="code-key">if</span> len(close) <span class="code-punct">&gt;=</span> <span class="code-num">200</span><span class="code-punct">:</span>
-                    dma200 <span class="code-punct">=</span> close.rolling(<span class="code-num">200</span>).mean().iloc[<span class="code-punct">-</span><span class="code-num">1</span>]
-                    <span class="code-key">if</span> current <span class="code-punct">&lt;</span> dma200 <span class="code-punct">*</span> <span class="code-num">0.90</span><span class="code-punct">:</span>
+                <span class="code-key">if</span> <span class="code-func">len</span>(close) <span class="code-punct">&gt;=</span> DMA_PERIOD<span class="code-punct">:</span>
+                    <span class="code-comment"># Fix: tail().mean() instead of rolling().mean().iloc[-1]</span>
+                    dma200 <span class="code-punct">=</span> <span class="code-func">float</span>(close.tail(DMA_PERIOD).mean())
+                    <span class="code-key">if</span> current <span class="code-punct">&lt;</span> dma200 <span class="code-punct">*</span> DMA_MAX_BELOW_PCT<span class="code-punct">:</span>
                         <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Too far below 200 DMA"</span>
             
-                <span class="code-comment"># Filter: Not in freefall (>25% drop in a month)</span>
-                month_ago <span class="code-punct">=</span> close.iloc[<span class="code-punct">-</span><span class="code-num">22</span>] <span class="code-key">if</span> len(close) <span class="code-punct">&gt;=</span> <span class="code-num">22</span> <span class="code-key">else</span> close.iloc[<span class="code-num">0</span>]
-                <span class="code-key">if</span> (current <span class="code-punct">-</span> month_ago) <span class="code-punct">/</span> month_ago <span class="code-punct">*</span> <span class="code-num">100</span> <span class="code-punct">&lt;</span> <span class="code-punct">-</span><span class="code-num">25</span><span class="code-punct">:</span>
-                    <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Falling more than 25% in a month"</span>
+                <span class="code-comment"># Filter: Not in freefall</span>
+                <span class="code-key">if</span> <span class="code-func">len</span>(close) <span class="code-punct">&gt;=</span> FREEFALL_PERIOD<span class="code-punct">:</span>
+                    month_ago <span class="code-punct">=</span> <span class="code-func">float</span>(close.iloc[<span class="code-punct">-</span>FREEFALL_PERIOD])
+                <span class="code-key">else</span><span class="code-punct">:</span>
+                    month_ago <span class="code-punct">=</span> <span class="code-func">float</span>(close.iloc[<span class="code-num">0</span>])
+            
+                <span class="code-comment"># Fix: ZeroDivisionError guard — month_ago=0 on bad API data crashes bot</span>
+                <span class="code-key">if</span> month_ago <span class="code-key">and</span> month_ago <span class="code-punct">!=</span> <span class="code-num">0</span><span class="code-punct">:</span>
+                    monthly_change <span class="code-punct">=</span> (current <span class="code-punct">-</span> month_ago) <span class="code-punct">/</span> month_ago <span class="code-punct">*</span> <span class="code-num">100</span>
+                    <span class="code-key">if</span> monthly_change <span class="code-punct">&lt;</span> FREEFALL_MAX_DROP<span class="code-punct">:</span>
+                        <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Falling more than 25% in a month"</span>
             
                 <span class="code-comment"># Filter: Not a penny stock</span>
-                <span class="code-key">if</span> current <span class="code-punct">&lt;</span> <span class="code-num">20</span><span class="code-punct">:</span>
-                    <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-string">"Price below ₹20"</span>
+                <span class="code-key">if</span> current <span class="code-punct">&lt;</span> MIN_STOCK_PRICE<span class="code-punct">:</span>
+                    <span class="code-key">return</span> <span class="code-key">False</span><span class="code-punct">,</span> <span class="code-key">f</span><span class="code-string">"Price below ₹</span><span class="code-punct">{</span>MIN_STOCK_PRICE<span class="code-punct">}</span><span class="code-string">"</span>
             
                 <span class="code-key">return</span> <span class="code-key">True</span><span class="code-punct">,</span> <span class="code-string">"OK"</span></code></pre>
                     </div>
@@ -294,29 +328,50 @@
                         <div class="file-name">telegram_sender.py</div>
                     </div>
                     <div class="vscode-body">
-                        <pre><code>    <span class="code-comment"># Confidence bar</span>
-                filled   <span class="code-punct">=</span> <span class="code-func">int</span>(confidence <span class="code-punct">/</span> <span class="code-num">10</span>)
-                conf_bar <span class="code-punct">=</span> <span class="code-string">"█"</span> <span class="code-punct">*</span> filled <span class="code-punct">+</span> <span class="code-string">"░"</span> <span class="code-punct">*</span> (<span class="code-num">10</span> <span class="code-punct">-</span> filled)
+                        <pre><code><span class="code-key">def</span> <span class="code-func">_safe</span>(text<span class="code-punct">:</span> <span class="code-type">str</span>) <span class="code-punct">-&gt;</span> <span class="code-type">str</span><span class="code-punct">:</span>
+                <span class="code-string">"""Escape Telegram Markdown special characters — prevents broken formatting."""</span>
+                <span class="code-key">return</span> <span class="code-func">str</span>(text).replace(<span class="code-string">"_"</span><span class="code-punct">,</span> <span class="code-string">"\\_"</span>).replace(<span class="code-string">"*"</span><span class="code-punct">,</span> <span class="code-string">"\\*"</span>)
             
-                <span class="code-comment"># Nifty direction icon</span>
-                nifty_icon <span class="code-punct">=</span> <span class="code-string">"🟢"</span> <span class="code-key">if</span> nifty_chg <span class="code-punct">&gt;</span> <span class="code-num">0</span> <span class="code-key">else</span> <span class="code-string">"🔴"</span>
-                gift_icon  <span class="code-punct">=</span> <span class="code-string">"🟢"</span> <span class="code-key">if</span> gift_gap <span class="code-punct">&gt;</span> <span class="code-num">0</span> <span class="code-key">else</span> <span class="code-string">"🔴"</span>
             
-                <span class="code-comment"># Build message with emojis and confidence bar</span>
+            <span class="code-key">def</span> <span class="code-func">format_pick</span>(result<span class="code-punct">:</span> <span class="code-type">dict</span><span class="code-punct">,</span> rank<span class="code-punct">:</span> <span class="code-type">int</span>) <span class="code-punct">-&gt;</span> <span class="code-type">str</span><span class="code-punct">:</span>
+                symbol     <span class="code-punct">=</span> result[<span class="code-string">"symbol"</span>]
+                price      <span class="code-punct">=</span> result[<span class="code-string">"price"</span>]
+                target     <span class="code-punct">=</span> result[<span class="code-string">"target"</span>]
+                stop_loss  <span class="code-punct">=</span> result[<span class="code-string">"stop_loss"</span>]
+                upside     <span class="code-punct">=</span> result[<span class="code-string">"upside_pct"</span>]
+                downside   <span class="code-punct">=</span> result[<span class="code-string">"downside_pct"</span>]
+                rr         <span class="code-punct">=</span> result[<span class="code-string">"risk_reward"</span>]
+                confidence <span class="code-punct">=</span> result[<span class="code-string">"confidence"</span>]
+                signal     <span class="code-punct">=</span> result[<span class="code-string">"signal"</span>]
+                sig_type   <span class="code-punct">=</span> result[<span class="code-string">"signal_type"</span>]
+                emoji      <span class="code-punct">=</span> result.get(<span class="code-string">"emoji"</span><span class="code-punct">,</span> <span class="code-string">"📊"</span>)
+                sector     <span class="code-punct">=</span> result.get(<span class="code-string">"sector"</span><span class="code-punct">,</span> <span class="code-string">""</span>)
+            
+                <span class="code-comment"># Fix: Clamp confidence before generating bar — prevents overflow on anomalies</span>
+                clamped_conf <span class="code-punct">=</span> <span class="code-func">max</span>(<span class="code-num">0</span><span class="code-punct">,</span> <span class="code-func">min</span>(<span class="code-num">100</span><span class="code-punct">,</span> confidence))
+                filled       <span class="code-punct">=</span> <span class="code-func">int</span>(clamped_conf <span class="code-punct">/</span> <span class="code-num">10</span>)
+                conf_bar     <span class="code-punct">=</span> <span class="code-string">"█"</span> <span class="code-punct">*</span> filled <span class="code-punct">+</span> <span class="code-string">"░"</span> <span class="code-punct">*</span> (<span class="code-num">10</span> <span class="code-punct">-</span> filled)
+            
+                <span class="code-comment"># Fix: Explicit float formatting — prevents messy floats like 150.0000000001</span>
+                risk_10_shares <span class="code-punct">=</span> <span class="code-func">round</span>((price <span class="code-punct">-</span> stop_loss) <span class="code-punct">*</span> <span class="code-num">10</span><span class="code-punct">,</span> <span class="code-num">2</span>)
+            
+                <span class="code-comment"># Fix: _safe() on symbol and sector prevents Markdown injection</span>
                 msg <span class="code-punct">=</span> (
-                    <span class="code-key">f</span><span class="code-string">"*#</span><span class="code-punct">{</span>rank<span class="code-punct">}</span> <span class="code-punct">{</span>symbol<span class="code-punct">}</span><span class="code-string">* |  </span><span class="code-punct">{</span>sector<span class="code-punct">}</span><span class="code-key">\n</span><span class="code-string">"</span>
-                    <span class="code-key">f</span><span class="code-string">"</span><span class="code-punct">{</span>emoji<span class="code-punct">}</span><span class="code-string"> _</span><span class="code-punct">{</span>type_desc<span class="code-punct">}</span><span class="code-string">_</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"*#</span><span class="code-punct">{</span>rank<span class="code-punct">}</span> <span class="code-punct">{</span><span class="code-func">_safe</span>(symbol)<span class="code-punct">}</span><span class="code-string">* |  </span><span class="code-punct">{</span><span class="code-func">_safe</span>(sector)<span class="code-punct">}</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"</span><span class="code-punct">{</span>emoji<span class="code-punct">}</span><span class="code-string"> _</span><span class="code-punct">{</span>sig_type<span class="code-punct">}</span><span class="code-string">_</span><span class="code-key">\n</span><span class="code-string">"</span>
                     <span class="code-key">f</span><span class="code-string">"━━━━━━━━━━━━━━━━</span><span class="code-key">\n</span><span class="code-string">"</span>
                     <span class="code-key">f</span><span class="code-string">"📊 Signal: *</span><span class="code-punct">{</span>signal<span class="code-punct">}</span><span class="code-string">*</span><span class="code-key">\n</span><span class="code-string">"</span>
-                    <span class="code-key">f</span><span class="code-string">"🎯 Confidence: </span><span class="code-punct">{</span>conf_bar<span class="code-punct">}</span> <span class="code-punct">{</span>confidence<span class="code-punct">}</span><span class="code-string">%</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"🎯 Confidence: </span><span class="code-punct">{</span>conf_bar<span class="code-punct">}</span> <span class="code-punct">{</span>confidence<span class="code-punct">:.1f}</span><span class="code-string">%</span><span class="code-key">\n</span><span class="code-string">"</span>
                     <span class="code-key">f</span><span class="code-string">"</span><span class="code-key">\n</span><span class="code-string">"</span>
-                    <span class="code-key">f</span><span class="code-string">"💰 *Buy at:* ₹</span><span class="code-punct">{</span>price<span class="code-punct">}</span><span class="code-key">\n</span><span class="code-string">"</span>
-                    <span class="code-key">f</span><span class="code-string">"🎯 *Target:* ₹</span><span class="code-punct">{</span>target<span class="code-punct">}</span><span class="code-string">  _(+</span><span class="code-punct">{</span>upside<span class="code-punct">}</span><span class="code-string">%)_</span><span class="code-key">\n</span><span class="code-string">"</span>
-                    <span class="code-key">f</span><span class="code-string">"🛑 *Stop Loss:* ₹</span><span class="code-punct">{</span>stop_loss<span class="code-punct">}</span><span class="code-string">  _(-</span><span class="code-punct">{</span>downside<span class="code-punct">}</span><span class="code-string">%)_</span><span class="code-key">\n</span><span class="code-string">"</span>
-                    <span class="code-key">f</span><span class="code-string">"⚖️ *Risk/Reward:* </span><span class="code-punct">{</span>rr<span class="code-punct">}</span><span class="code-string">x</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"💰 *Buy at:* ₹</span><span class="code-punct">{</span>price<span class="code-punct">:.2f}</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"🎯 *Target:* ₹</span><span class="code-punct">{</span>target<span class="code-punct">:.2f}</span><span class="code-string">  _(+</span><span class="code-punct">{</span>upside<span class="code-punct">:.1f}</span><span class="code-string">%)_</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"🛑 *Stop Loss:* ₹</span><span class="code-punct">{</span>stop_loss<span class="code-punct">:.2f}</span><span class="code-string">  _(-</span><span class="code-punct">{</span>downside<span class="code-punct">:.1f}</span><span class="code-string">%)_</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"⚖️ *Risk/Reward:* </span><span class="code-punct">{</span>rr<span class="code-punct">:.2f}</span><span class="code-string">x</span><span class="code-key">\n</span><span class="code-string">"</span>
                     <span class="code-key">f</span><span class="code-string">"</span><span class="code-key">\n</span><span class="code-string">"</span>
-                    <span class="code-key">f</span><span class="code-string">"💸 *Max loss per 10 shares:* ₹</span><span class="code-punct">{</span>risk_10_shares<span class="code-punct">}</span><span class="code-key">\n</span><span class="code-string">"</span>
-                )</code></pre>
+                    <span class="code-key">f</span><span class="code-string">"💸 *Max loss per 10 shares:* ₹</span><span class="code-punct">{</span>risk_10_shares<span class="code-punct">:.2f}</span><span class="code-key">\n</span><span class="code-string">"</span>
+                    <span class="code-key">f</span><span class="code-string">"📌 _Never invest more than 5-10% of capital in one pick_</span><span class="code-key">\n</span><span class="code-string">"</span>
+                )
+                <span class="code-key">return</span> msg</code></pre>
                     </div>
                 </div>
             </div>
