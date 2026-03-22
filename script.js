@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only run TOC logic if TOC links exist on this page
     if (navLinks.length > 0) {
-        
+       
         // SMOOTH SCROLL ON CLICK
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -27,22 +27,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // HIGHLIGHT ACTIVE SECTION ON SCROLL
-        window.addEventListener('scroll', () => {
-            let current = '';
-
-            sections.forEach(section => {
+        let ticking = false;
+        window.addEventListener("scroll", () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              let current = "";
+              sections.forEach((section) => {
                 const sectionTop = section.offsetTop;
-                if (window.scrollY >= (sectionTop - 250)) {
-                    current = section.getAttribute('id');
+                if (window.scrollY >= sectionTop - 250) {
+                  current = section.getAttribute("id");
                 }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (current && link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
+              });
+              navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (current && link.getAttribute("href").includes(current)) {
+                  link.classList.add("active");
                 }
+              });
+              ticking = false;
             });
+            ticking = true;
+          }
         });
 
         window.dispatchEvent(new Event('scroll'));
